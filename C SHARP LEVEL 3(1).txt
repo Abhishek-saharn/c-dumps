@@ -1,0 +1,2083 @@
+1 Unique Even Sum
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
+namespace multi_threading_2_ebox
+{
+    class Program
+    {
+        int[] a = new int[5] { 0, 0, 0, 0, 0 };
+
+        public void counter(object s)
+        {
+            string d = (string)s;
+            int c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0;
+            char[] f = d.ToCharArray();
+            for (int i = 0; i < f.Length; i++)
+            {
+                if (f[i] == 'a' || f[i] == 'A')
+                    c1++;
+                if (f[i] == 'e' || f[i] == 'E')
+                    c2++;
+                if (f[i] == 'i' || f[i] == 'I')
+                    c3++;
+                if (f[i] == 'o' || f[i] == 'O')
+                    c4++;
+                if (f[i] == 'u' || f[i] == 'U')
+                    c5++;
+            }
+            a[0] += c1;
+            a[1] += c2;
+            a[2] += c3;
+            a[3] += c4;
+            a[4] += c5;
+        }
+
+        static void Main(string[] args)
+        {
+            Program p = new Program();
+
+            Console.WriteLine("Enter Number of Counters :");
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            Thread[] t = new Thread[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                t[i] = new Thread(new ParameterizedThreadStart(p.counter));
+                Console.WriteLine("Enter text for counter {0} :", i + 1);
+                string q = Console.ReadLine();
+                t[i].Start(q);
+                t[i].Join();
+            }
+
+            Console.WriteLine("Vowels count in given text are :");
+            Console.WriteLine("a:{0} e:{1} i:{2} o:{3} u:{4}", p.a[0], p.a[1], p.a[2], p.a[3], p.a[4]);
+
+            Console.ReadKey();
+        }
+    }
+
+
+
+}
+------------------------------------------------------------------------------------------------
+2 Largest Span
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _2_largest_span
+{
+    class UserProgramCode
+    {
+        public static int getMaxSpan(int size, int[]arr)
+        {
+            int temp;
+            for (int i = 0; i < size - 1; i++)
+            {
+                for (int j = i + 1; j < size; j++)
+                {
+                    if (arr[i] > arr[j])
+                    {
+                        temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+            return (arr[size - 1] + arr[0]);
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter size");
+            int size = Convert.ToInt32(Console.ReadLine());
+            int [] arr=new int [size];
+            for (int i = 0; i < size; i++)
+                arr[i] = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(UserProgramCode.getMaxSpan(size,arr));
+            Console.ReadLine();
+        }
+    }
+}
+-------------------------------------------------------------------------------------------------
+3 Count the number of odd intigers
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _3_odd_count
+{
+    class UserProgramCode
+    {
+        public static int countOddIntegers(int[] arr)
+        {
+            int i, count = 0,trg=0;
+            for (i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] % 2 != 0)
+                    count++;
+                if (arr[i] < 0)
+                    trg = -1;
+            }
+            if (trg == 0)
+                return count;
+            else 
+                return trg;
+
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter size");
+            int size=Convert.ToInt32(Console.ReadLine());
+            int[] arr = new int[size];
+            for (int i = 0; i < size; i++)
+            {
+                arr[i] = Convert.ToInt32(Console.ReadLine()); 
+            }
+            int c = UserProgramCode.countOddIntegers(arr);
+            if (c > 0)
+                Console.WriteLine(c);
+            else if (c < 0)
+                Console.WriteLine("The Array consist of non-positive value(s)");
+            Console.ReadLine();
+        }
+    }
+}
+-------------------------------------------------------------------------------------
+4 Reimbursement
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _4_reimbursement
+{
+    class UserProgramCode
+    {
+        public static int calculateamountrefundable(double fee, int p, bool b)
+        {
+            int lowfee = 0,invp=0;
+            int remb=0;
+            if (fee < 25000)
+                lowfee = -1;
+            if (p < 80 || p > 100)
+                invp = -2;
+            if ((p >= 80 && p <= 85)&&(b== false))
+            {
+                remb = Convert.ToInt32(fee)*40/100;
+                remb = remb+3000;
+            }
+            else if ((p >= 86 && p <= 90) && (b == false))
+            {
+                remb = Convert.ToInt32(fee) * 50 / 100;
+                remb = remb + 5000;
+            }
+            else if ((p > 90) && (b == false))
+            {
+                remb = Convert.ToInt32(fee) * 60 / 100;
+                remb = remb + 7000;
+            }
+            if (invp == -2)
+                return invp;
+            if (b == true)
+                return 0;
+            else if (lowfee == -1)
+                return lowfee; 
+            else
+                return remb;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double fee = Convert.ToDouble(Console.ReadLine());
+            int p = Convert.ToInt32(Console.ReadLine());
+            bool b = Convert.ToBoolean(Console.ReadLine());
+            int c = UserProgramCode.calculateamountrefundable(fee, p, b);
+            if(c==0)
+                Console.WriteLine("No rembursement Arriers found");
+            if(c>0)
+                Console.WriteLine(c);
+            if(c==-1)
+                Console.WriteLine("Low Fees Amount");
+            if(c==-2)
+                Console.WriteLine("Invalid Percentage");
+            Console.ReadLine();
+        }
+    }
+}
+--------------------------------------------------------------------------------------------
+5 Insurance Guide 
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _5_insurance_guide
+{
+    class UserProgramCode
+    {
+        public void InsuranceGuide(char hel, int age, char sex, char town)
+        {
+            if (hel == 'E' && sex == 'M' && town == 'C')
+            {
+                if (age >= 25 && age <= 35)
+                {
+                    Console.WriteLine("4");
+                    Console.WriteLine("200000");
+                    
+                }
+                else if(age>=60)
+                    Console.WriteLine("Age limit Exceeded");
+                else
+                    Console.WriteLine("The person cannot be insured");
+            }
+            else if (hel == 'E' && sex == 'F' && town == 'C')
+            {
+                if (age >= 25 && age <= 35)
+                {
+                    Console.WriteLine("3");
+                    Console.WriteLine("100000");
+                }
+                else if (age >= 60)
+                    Console.WriteLine("Age limit Exceeded");
+                else
+                    Console.WriteLine("The person cannot be insured");
+            }
+            else if (hel == 'P' && sex == 'M' && town == 'V')
+            {
+                if (age >= 25 && age <= 35)
+                {
+                    Console.WriteLine("6");
+                    Console.WriteLine("10000");
+                }
+                else if (age >= 60)
+                    Console.WriteLine("Age limit Exceeded");
+                else
+                    Console.WriteLine("The person cannot be insured");
+            }
+            else
+                Console.WriteLine("The person cannot be insured");
+         }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            char hel=Convert.ToChar(Console.ReadLine());
+            int age=Convert.ToInt32(Console.ReadLine()); 
+            char sex=Convert.ToChar(Console.ReadLine());
+            char town=Convert.ToChar(Console.ReadLine());
+            char.ToUpper(hel);
+            char.ToUpper(sex);
+            char.ToUpper(town);
+            UserProgramCode u = new UserProgramCode();
+            u.InsuranceGuide(hel, age, sex, town);
+            Console.ReadLine(); 
+        }
+    }
+}
+-------------------------------------------------------------------------------
+6 Display Student exam eligibility status 
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _6_student_eligibility
+{
+    class UserProgramCode
+    {
+        public static string FindResult(int a, int b)
+        {
+            string s=string.Empty;
+            if (a > 100 || b > 100)
+                s = "Invalid Marks";
+            else if (a >= 45 && b >= 45)
+            {
+                if (a >= 55)
+                    s = "P";
+                else if (a < 55 && b >= 55)
+                    s = "P";
+            }
+            else if (b < 45)
+            {
+                if (a >= 65)
+                    s = "R";
+                else
+                    s = "F";
+            }
+            else
+                s = "F";
+            return s;
+
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = Convert.ToInt32(Console.ReadLine());
+            int b = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(UserProgramCode.FindResult(a,b));
+            Console.ReadLine();
+        }
+    }
+}
+-------------------------------------------------------------------------
+7 Calculate Charge 
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Globalization;
+
+namespace _7_calculate_charge
+{
+    class UserProgramCode
+    {
+        public static int calculatecharge(string s1, string s2)
+        {
+            int cost;
+            string dob_pattern = "yyyy-MM-dd:HH:mm:ss";
+            DateTime d1;
+            DateTime.TryParseExact(s1, dob_pattern, null, DateTimeStyles.None, out d1);
+            DateTime d2;
+            DateTime.TryParseExact(s2, dob_pattern, null, DateTimeStyles.None, out d2);
+            TimeSpan t = (d2).Subtract(d1);
+            double d = t.TotalHours;
+            if (d == 0)
+                cost = -1;
+            else if (d < 0)
+                cost = -2;
+            else if (d > 24)
+                cost = -3;
+            else if (d > 19 && d <= 24)
+                cost = 100;
+            else if (d < 23 && d > 3)
+                cost = 20 + ((Convert.ToInt32(Math.Round(d) - 3)) * 5);
+            else
+                cost = 20;
+            /*double d = t.TotalDays;
+            d = d / 365.25;
+            int i = Convert.ToInt32(Math.Round(d));
+            return i;*/
+            return cost ;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s1 = Console.ReadLine();
+            string s2 = Console.ReadLine();
+            int cost=UserProgramCode.calculatecharge(s1, s2);
+            if(cost>0)
+                Console.WriteLine(cost);
+            if(cost==-1)
+                Console.WriteLine("Invalid Date Format");
+            if(cost==-2)
+                Console.WriteLine("CheckoutDateTime is less then CheckInDateTime");
+            if(cost==-3)
+                Console.WriteLine("Duration exceeds 24 hrs");
+            Console.ReadLine();
+        }
+    }
+}
+----------------------------------------------------------------------------------------
+8 Get Word with maximum Vowels 
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _8_max_vowel_count
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s=Console.ReadLine();
+            Console.WriteLine(UserProgramCode.getwordwithmaximumvowelcount(s));
+            Console.ReadLine();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _8_max_vowel_count
+{
+    class UserProgramCode
+    {
+        public static string getwordwithmaximumvowelcount(string s)
+        {
+            string[] ss = s.Split();
+            int i, j, k, max = 0 ;
+            string f=string.Empty;
+            for (i = 0; i < ss.Length; i++)
+            {
+                k=0;
+                string test = ss[i];
+                test.ToLower();
+                for (j = 0; j < test.Length; j++)
+                {
+                    if (test[j] == 'a' || test[j] == 'e' || test[j] == 'i' || test[j] == 'o' || test[j] == 'u')
+                        k++;
+                }
+                if (k > max)
+                {
+                    max = k;
+                    f = test;
+                }                
+            }
+            return f;
+        }
+    }
+}
+-----------------------------------------------------------------------------------
+9 Check Palindrome
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _9_check_palindrome
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            int c = userProgramCode.checkpalindrome(s);
+            if(c==1)
+                Console.WriteLine("Palindrome");
+            else
+                Console.WriteLine("Not a Palindrome");
+            Console.ReadLine();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _9_check_palindrome
+{
+    class userProgramCode
+    {
+        public static int checkpalindrome(string s)
+        {
+            int trg=0;
+            s.ToLower();
+            char[] c1 = s.ToCharArray();
+            char[] c2 = s.ToCharArray();
+            Array.Reverse(c2);
+
+            if (c1.SequenceEqual(c2))
+            {
+                trg = 1;
+            }
+            //for (int i = 0; i < c1.Length; i++)
+            //{
+            //    if (c1[i] != c2[i])
+            //        trg =0;
+            //}
+            return trg;
+        }
+    }
+}
+---------------------------------
+
+
+
+
+-----------ALL VOWELS------------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace AllVowels
+
+{
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string s = Console.ReadLine();
+
+            int a = UserProgramCode.testOrderVowels(s);
+
+            if(a==1)
+
+                Console.WriteLine("valid");
+
+            else
+
+                Console.WriteLine("invalid");
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace AllVowels
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int testOrderVowels(string s)
+
+        {
+
+            int i, c = 0;
+
+            int temp = 65;
+
+            for (i = 0; i < s.Length; i++)
+
+            {
+
+                if (s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' || s[i] == 'u')
+
+                {
+
+                    if (temp <(int)s[i])
+
+                    {
+
+                        temp = (int)s[i];
+
+                        c++;
+
+                    }
+
+                }
+
+ 
+
+            }
+
+            if (c == 5)
+
+                return 1;
+
+            else
+
+                return -1;
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+ 
+
+-----------ROMAN TO DECIMAL-----------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace ConsoleApplication1
+
+{
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string s = Console.ReadLine();
+
+            int a = UserProgramCode.convertRomanToDecimal(s);
+
+            if(a!=-1)
+
+                Console.WriteLine(a);
+
+            else
+
+                Console.WriteLine(a);
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace ConsoleApplication1
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int convertRomanToDecimal(string a)
+
+        {
+
+            int i, s = 0,f=0;
+
+            for (i = 0; i < a.Length; i++)
+
+            {
+
+                if (a[i] != 'I' && a[i] != 'V' && a[i] != 'X' && a[i] != 'L' && a[i] != 'C' && a[i] != 'D' && a[i] != 'M')
+
+                {
+
+                    f = 1;
+
+                    break;
+
+                }
+
+            }
+
+            if (f == 1)
+
+                return -1;
+
+            else
+
+            {
+
+                for (i = 0; i < a.Length; i++)
+
+                {
+
+                    if (a[i] == 'I')
+
+                        s += 1;
+
+                    else
+
+                        if (a[i] == 'V')
+
+                            s += 5;
+
+                        else
+
+                            if (a[i] == 'X')
+
+                                s += 10;
+
+                            else
+
+                                if (a[i] == 'L')
+
+                                    s += 50;
+
+                                else
+
+                                    if (a[i] == 'C')
+
+                                        s += 100;
+
+                                    else
+
+                                        if (a[i] == 'D')
+
+                                            s += 500;
+
+                                        else
+
+                                            if (a[i] == 'M')
+
+                                                s += 1000;
+
+                }
+
+                return s;
+
+            }
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+----------------TEST VOWEL ORDER-------------
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace TestVowelOrder
+
+{
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string s = Console.ReadLine();
+
+            int a = UserProgramCode.testOrderVowels(s);
+
+            Console.WriteLine(a);
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace TestVowelOrder
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int testOrderVowels(string input1)
+
+        {
+
+            int i, c = 0,c1=0;
+
+            int temp = 65;
+
+            for (i = 0; i < input1.Length; i++)
+
+            {
+
+                if (input1[i] == 'a' || input1[i] == 'e' || input1[i] == 'i' || input1[i] == 'o' || input1[i] == 'u')
+
+                {
+
+                    c1++;
+
+                
+
+                    if (temp <=(int)input1[i])
+
+                    {
+
+                        temp = (int)input1[i];
+
+                        c++;
+
+                    }
+
+                    
+
+                }
+
+ 
+
+            }
+
+            if (c == 5)
+
+                return 1;
+
+            else if(c1>5)
+
+                return -1;
+
+            else
+
+                return 2;
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+ 
+
+------------STRING OCCURRENCES----------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace StringOccurences
+
+{
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string s = Console.ReadLine();
+
+            string a = Console.ReadLine();
+
+            int d = UserProgramCode.countNoOfWords(s, a);
+
+            Console.WriteLine(d);
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace StringOccurences
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int countNoOfWords(string a, string b)
+
+        {
+
+            int s = 0, i;
+
+            string[] q = a.Split();
+
+            string[] w = b.Split();
+
+ 
+
+            for (i = 0; i < q.Length; i++)
+
+            {
+
+                if (string.Compare(q[i], w[1], false) == 0)
+
+                    s = s + 1;
+
+            }
+
+ 
+
+            return s;
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+ 
+
+---------SPAN----------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace Span
+
+{
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            int[] a = new int[n];
+
+ 
+
+            for (int i = 0; i < n; i++)
+
+                a[i] = Convert.ToInt32(Console.ReadLine());
+
+ 
+
+            int s = UserProgramCode.getMax(a);
+
+            Console.WriteLine(s);
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace Span
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int getMax(int[] input1)
+
+        {
+
+            int maxSpan = 0;
+
+            int tempSpan = 0;
+
+ 
+
+            for (int i = 0; i < input1.Length; i++)
+
+            {
+
+                for (int j = input1.Length - 1; j > i; j--)
+
+                {
+
+                    if (input1[i] == input1[j])
+
+                    {
+
+                        tempSpan = j - i;
+
+                        break;
+
+                    }
+
+                }
+
+                if (tempSpan>0)
+
+                {
+
+                    maxSpan = tempSpan+1;
+
+                    break;
+
+                }
+
+                
+
+            }
+
+            return maxSpan;
+
+ 
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+ 
+
+------------MAX VOWELS-----------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace MaxVowels
+
+{
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string s = Console.ReadLine();
+
+            string d = UserProgramCode.getWordWithMaximumVowels(s);
+
+            if(d=="-1")
+
+                Console.WriteLine("No word with Vowels");
+
+            else
+
+                Console.WriteLine(d);
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace MaxVowels
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static string getWordWithMaximumVowels(string input1)
+
+        {
+
+ 
+
+            string[] s = input1.Split();
+
+            int[] a = new int[s.Length];
+
+            int i,c=0,t;
+
+ 
+
+            for (i = 0; i < s.Length; i++)
+
+            {
+
+                string temp = s[i];
+
+ 
+
+                foreach (char ch in temp)
+
+                {
+
+                    if (ch == 'a' || ch == 'A' || ch == 'e' || ch == 'E' || ch == 'i' || ch == 'I' || ch == 'o' || ch == 'O' || ch == 'u' || ch == 'U')
+
+                    {
+
+                        c++;
+
+                    }
+
+                    a[i] = c;
+
+                }
+
+                c = 0;
+
+            }
+
+ 
+
+            t = a[0];
+
+            int l =0;
+
+            for (i = 1; i < a.Length; i++)
+
+            {
+
+                if (a[i] > t)
+
+                {
+
+                    t = a[i];
+
+                    l = i;
+
+                }
+
+            }
+
+ 
+
+            return s[l];
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+ 
+
+----------DUPLICATE CHARACTER---------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace DuplicateCharacter
+
+{
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string s = Console.ReadLine();
+
+            string a = UserProgramCode.removeDuplicates(s);
+
+            Console.WriteLine(a);
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace DuplicateCharacter
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static string removeDuplicates(string s)
+
+        {
+
+            return new string(s.ToCharArray().Distinct().ToArray());            
+
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+21) Check Batch Code
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace Check_Batch_Code
+{
+    class UserProgramCode
+    {
+        public static string checkBatch(string s)
+        {
+            string s1 = s.Substring(0, 3);
+            string s2 = s.Substring(3, 2);
+            string s3 = s.Substring(5, 2);
+            string s4 = s.Substring(7, 3);
+            string loc = string.Empty;
+            string x = string.Empty;
+            int flag = 0, flag1 = 0, flag2 = 0, flag3 = 1;
+            Regex r = new Regex ( @"^[0-9]{2}$" );
+            Regex r1 = new Regex(@"^[0-9]{3}$");
+            //Console.WriteLine(s1);
+            //Console.WriteLine(s2);
+            //Console.WriteLine(s3);
+            //Console.WriteLine(s4);
+            switch (s1)
+            {
+                case "CHN":
+                    loc = "Chennai";
+                    break;
+                case "CBE":
+                    loc = "Coimbatore";
+                    break;
+                case "KOC":
+                    loc = "Kochi";
+                    break;
+                case "PUN":
+                    loc = "Pune";
+                    break;
+                case "BGL":
+                    loc = "Bangalore";
+                    break;
+                case "HYD":
+                    loc = "Hyderabad";
+                    break;
+                case "KOL":
+                    loc = "Kolkata";
+                    break;
+                default:
+                    flag3 = 0;
+                    break;
+            }
+
+            if (r.IsMatch(s2))
+            {
+                flag = 1;
+            }
+            else
+                return "-2";
+            if (s3 == "DN")
+            {
+                flag1 = 1;
+            }
+            else
+                return "-3";
+            if (r1.IsMatch(s4))
+            {
+                flag2 = 1;
+            }
+            else
+                return "-2";
+            if (flag3 == 0)
+            {
+                return "-1";
+            }
+            if (flag == 1 && flag1 == 1 && flag2 == 1 && flag3 == 1)
+            {
+                x = "DotNet batch " + s4 + " has joined in 20" + s2 + " year and is at " + loc + " Location";
+                
+            }
+            return x;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            string g = UserProgramCode.checkBatch(s);
+            if (g == "-1")
+            {
+                Console.WriteLine("-1");
+            }
+            else if (g == "-2")
+            {
+                Console.WriteLine("-2");
+            }
+            else if (g == "-3")
+            {
+                Console.WriteLine("-3");
+            }
+            else
+            Console.WriteLine(g);
+            Console.ReadKey();
+        }
+    }
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+22) Concatenate Characters
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace Concatenate_Characters
+{
+    class UserProgramCode
+    {
+        public static string concatCharacter(string[] s)
+        {
+            Regex r = new Regex(@"[0-9]");
+            Regex r1 = new Regex(@"[a-zA-Z0-9]");
+            StringBuilder sb = new StringBuilder();
+            int flag=0,flag1=0;
+            string l = string.Empty;
+            foreach (string k in s)
+            {
+                if (r.IsMatch(k))
+                    flag = 1;
+                else if (!r1.IsMatch(k))
+                    flag1=1;
+            }
+            if (s.Length == 1)
+                return "-3";
+            else if (flag == 0 && flag1 == 0)
+            {
+                foreach (string k in s)
+                {
+                    sb.Append(k[1]);
+                }
+                l = sb.ToString();
+            }
+            else if (flag == 1)
+                return "-1";
+            else if (flag1 == 1)
+                return "-2";
+            
+            
+                
+                return l;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            n = Convert.ToInt32(Console.ReadLine());
+            string[] s = new string[n];
+            for (int i = 0; i < n; i++)
+            {
+                s[i] = Console.ReadLine();
+            }
+            string l=UserProgramCode.concatCharacter(s);
+            Console.WriteLine(l);
+            Console.ReadKey();
+        }
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+23)Image Types
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace Image_Types
+{
+    class UserProgramCode
+    {
+        public static List<string> countImageTypes(string[] input1)
+        {
+            char[] delemiter = new char[] { '.' };
+            List<string> exet = new List<string>();
+            
+            foreach (string s in input1)
+            {
+                string[] split = s.Split(delemiter);
+                if (split.Count() == 2)
+                    exet.Add(split[1]);
+                else
+                    exet.Add("others");
+
+            }
+            int hcount = exet.Distinct().Count();
+            string[] my = exet.Distinct().ToArray();
+           
+            List<string> output = new List<string>();
+
+
+            foreach (string s in my)
+            {
+
+                int c = exet.Where(a => a == s).Count();
+                output.Add(s);
+                output.Add(c.ToString());
+            }
+            return output;
+
+           
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            n = Convert.ToInt32(Console.ReadLine());
+            string[] s = new string[n];
+            for (int i = 0; i < n; i++)
+            {
+                s[i] = Console.ReadLine();
+            }
+            List<string> l=new List<string>();
+            
+            l=UserProgramCode.countImageTypes(s);
+            foreach (string s1 in l)
+            {
+                Console.WriteLine(s1);
+            }
+            Console.ReadKey();
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+24)Calculate New Salary
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Calculate_New_Salary
+{
+    class UserProgramCode
+    {
+        public static int calculateNewSalary(int a, string b, int c)
+        {
+            int revisedsalary = c + (c * 30) / 100;
+            int flag = 0, flag1 = 0;
+            if (a > 25 || a < 0)
+            {
+                flag = 1;
+
+            }
+            else if (a > 3 && a <= 5)
+            {
+                revisedsalary = revisedsalary + (5 * c) / 100;
+            }
+            else if (a > 5 && a <= 8)
+            {
+                revisedsalary = revisedsalary + (10 * c) / 100;
+            }
+            else if (a > 8)
+            {
+                revisedsalary = revisedsalary + (15 * c) / 100;
+            }
+            if (b == "RS" || b == "CS")
+            {
+                if (b == "RS")
+                    revisedsalary = revisedsalary + (5 * c) / 100;
+            }
+            else
+                flag1 = -1;
+            if (flag == 1)
+                return -1;
+            else if (flag1 == -1)
+                return -2;
+            else
+
+                return revisedsalary;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int revisedsalary;
+            int experience = Convert.ToInt32(Console.ReadLine());
+            string classification = Console.ReadLine();
+            int presalary = Convert.ToInt32(Console.ReadLine());
+            revisedsalary = UserProgramCode.calculateNewSalary(experience, classification, presalary);
+            if (revisedsalary == -1)
+                Console.WriteLine("Wrong Experience");
+            else if (revisedsalary == -2)
+                Console.WriteLine("Invalid Technology expertise classification");
+            else
+                Console.WriteLine("Your Salary is fixed as Rs {0}", revisedsalary);
+            Console.ReadKey();
+        }
+    }
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+25)Calculate Discount
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace Calculate_Discoun
+{
+    class UserProgramCode
+    {
+        public static int[] calcDiscount(int[] input1, int[] input2)
+        {
+            
+            double discount = 0.00;
+            int count = 0;
+            if (input1.Length == input2.Length)
+            {
+                for (int i = 0; i < input1.Length; i = i + 2)
+                {
+                    for (int j = 0; j < input2.Length; j = j + 2)
+                    {
+                        if (input1[i] == input2[j])
+                        {
+                            count++;
+                        }
+
+                    }
+                }
+
+            }
+            
+            int[] output = new int[count * 2];
+            int[] process = new int[count * 3];
+
+            if (count == 0)
+            {
+                output[0] = -1;
+            }
+            else if (input1.Length != input2.Length)
+            {
+                output[0] = -2;
+            }
+            else
+            { int k = 0;
+                  for (int i = 0; i < input1.Length; i = i + 2)
+                    {
+                        for (int j = 0; j < input2.Length; j = j + 2)
+                        {
+                            if (input1[i] == input2[j])
+                            {
+                                process[k] = input1[i];
+                                process[k + 1] = input1[i + 1];
+                                process[k + 2] = input2[j + 1];
+                            }
+                        }
+                        k = k + 3;
+                    }
+                
+                int l = -1;
+                for (int i = 0; i < count*3; i = i + 3)
+                {
+                    if (process[i + 1] >= 1 && process[i + 1] <= 4)
+                    {
+                        if (process[i + 2] >= 100000 && process[i + 2] < 500000)
+                        {
+                            discount = process[i + 2] * .15;
+                        }
+                        else
+                        {
+                            discount = process[i + 2] * .25;
+                        }
+                    }
+                    else if (process[i + 1] >= 5 && process[i + 1] <= 8)
+                    {
+                        if (process[i + 2] >= 100000 && process[i + 2] < 500000)
+                        {
+                            discount = process[i + 2] * .10;
+                        }
+                        else
+                        {
+                            discount = process[i + 2] * .20;
+                        }
+                    }
+                    else if (process[i + 1] >= 9 && process[i + 1] <= 12)
+                    {
+                        if (process[i + 2] >= 100000 && process[i + 2] < 500000)
+                        {
+                            discount = process[i + 2] *0.05;
+                        }
+                        else
+                        {
+                            discount = process[i + 2] * 0.15;
+                        }
+                    }
+                    output[++l] = process[i];
+                    output[++l] = Convert.ToInt32(discount);
+                }
+                
+            }
+            return output;
+        }
+       
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int m = Convert.ToInt32(Console.ReadLine());
+            int[] input1 = new int[m];
+            for (int i = 0; i < m; i++)
+            {
+                input1[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] input2 = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                input2[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            
+            int[] a = UserProgramCode.calcDiscount(input1, input2);
+            for (int i = 0; i < m; i++)
+            {
+                if (a[i] == -1)
+                
+                Console.WriteLine(a[i]);
+            }
+            Console.ReadKey();
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+26)EMI Calculation
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Globalization;
+
+namespace EMI_Calculation
+{
+    class UserProgramCode
+    {
+        public static int checkEmpAgeEligible(String input1,int input2)
+        {
+            string date = "dd-MM-yyyy";
+            int emi=0,flag=0;
+            DateTime d1=new DateTime();
+            DateTime.TryParseExact(input1, date, null, DateTimeStyles.None, out d1);
+            //DateTime d2 = new DateTime();
+            TimeSpan p= DateTime.Today.Subtract(d1);
+            double Years = p.TotalDays / 365.25;
+            int x = Convert.ToInt32(Years);
+            if (x <= 22)
+            {
+                if (input2 == 12)
+                {
+                    emi = 17167;
+                }
+                else if (input2 == 24)
+                {
+                    emi = 8583;
+                }
+                else if (input2 == 36)
+                {
+                    emi = 5722;
+                }
+                else if (input2 == 48)
+                {
+                    emi = 4292;
+                }
+                else
+                    flag = 1;
+            }
+            else if (x > 22 && x <= 45)
+            {
+                if (input2 == 12)
+                {
+                    emi = 26250;
+                }
+                else if (input2 == 24)
+                {
+                    emi = 13125;
+                }
+                else if (input2 == 36)
+                {
+                    emi = 8750;
+                }
+                else if (input2 == 48)
+                {
+                    emi = 6563;
+                }
+                else
+                {
+                    flag = 1;
+                }
+            }
+            else if (x > 45 && x <= 100)
+            {
+                if (input2 == 12)
+                {
+                    emi = 44583;
+                }
+                else if (input2 == 24)
+                {
+                    emi = 22292;
+                }
+                else if (input2 == 36)
+                {
+                    emi = 14861;
+                }
+                else if (input2 == 48)
+                {
+                    emi = 11146;
+                }
+                else
+                {
+                    flag = 1;
+                }
+            }
+            else
+                flag = 1;
+            if (flag == 1)
+                return -2;
+            else
+            return emi;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string date = Console.ReadLine();
+            int emi = Convert.ToInt32(Console.ReadLine());
+            
+            int x;
+            x = UserProgramCode.checkEmpAgeEligible(date,emi);
+            Console.WriteLine(x);
+            Console.ReadKey();
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+27)Roman Numeral
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Roman_Numerals
+{
+    class UserProgramCode
+    {
+        public static StringBuilder sb = new StringBuilder();
+        static int j = 1;
+ 
+        public static string romanNumerals(int input)
+        {
+            string s = UserProgramCode.ToRoman(input);
+            return s;
+        }
+ 
+        public static string ToRoman(int number)
+        {
+            if (number < 1) return string.Empty;
+            if (number >= 1000) return "M" + ToRoman(number - 1000);
+            if (number >= 900) return "CM" + ToRoman(number - 900);
+            if (number >= 500) return "D" + ToRoman(number - 500);
+            if (number >= 400) return "CD" + ToRoman(number - 400);
+            if (number >= 100) return "C" + ToRoman(number - 100);
+            if (number >= 90) return "XC" + ToRoman(number - 90);
+            if (number >= 50) return "L" + ToRoman(number - 50);
+            if (number >= 40) return "XL" + ToRoman(number - 40);
+            if (number >= 10) return "X" + ToRoman(number - 10);
+            if (number >= 9) return "IX" + ToRoman(number - 9);
+            if (number >= 5) return "V" + ToRoman(number - 5);
+            if (number >= 4) return "IV" + ToRoman(number - 4);
+            if (number >= 1) return "I" + ToRoman(number - 1);
+            else return "";
+        }
+ 
+    }
+class Program
+    {
+        static void Main(string[] args)
+        {
+            int input = Convert.ToInt32(Console.ReadLine());
+            if(input > 4000)
+                Console.WriteLine("greater than 4000");
+            else if (input < 0)
+                Console.WriteLine("Invalid input");
+            else
+            {
+                string s = UserProgramCode.romanNumerals(input);
+                Console.WriteLine(s);
+            }
+            Console.ReadKey();
+        }
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+28)Permutations
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+
+    class Program
+    {
+
+        static List<string> S = new List<string>();
+        
+
+        public static List<string> Permutation(string input)
+        {
+            string input1 = new string(input.Distinct().ToArray());
+            
+            RecPermutation("", input1);
+            return S;
+        }
+
+        private static void RecPermutation(string soFar, string input)
+        {
+
+            if (string.IsNullOrEmpty(input))
+            {
+
+                S.Add(soFar);
+                return;
+            }
+            else
+            {
+                for (int i = 0; i < input.Length; i++)
+                {
+
+                    string remaining = input.Substring(0, i) + input.Substring(i + 1);
+                    RecPermutation(soFar + input[i], remaining);
+                }
+            }
+        }
+
+
+
+        static void Main(string[] args)
+        {
+            Program p = new Program();
+            //int number = int.Parse(Console.ReadLine());
+            string snumber = Console.ReadLine();
+
+            List<string> FINAL = Program.Permutation(snumber);
+
+            var MYDATA = FINAL.Distinct();
+           // Console.WriteLine(MYDATA.Count());
+            foreach (var S in MYDATA)
+            {
+                Console.WriteLine(S);
+            }
+
+
+            Console.ReadKey();
+        }
+    }
+}

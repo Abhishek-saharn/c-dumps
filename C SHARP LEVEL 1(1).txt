@@ -1,0 +1,7218 @@
+------1.----BMI Calculator-----
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            float input1, input2;
+            input1 = float.Parse(Console.ReadLine());
+            input2 = float.Parse(Console.ReadLine());
+            Console.WriteLine(UserProgramcode.BMICalc(input1, input2));
+            Console.ReadKey();
+
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_1
+{
+    class UserProgramcode
+    {
+
+         public static string BMICalc(float input1, float input2)
+        {
+
+            float  bmi;
+            
+            if (input1 <= 0 || input2 <= 0)
+            {
+                return("InvalidInput");
+            }
+            else
+            {
+
+                bmi = (input1 / (input2 * input2));
+                if (bmi < 18.5)
+                    return("Underweight");
+                else if (bmi >= 18.5 && bmi <= 24.9)
+                    return("Normalweight");
+                else if (bmi >= 25 && bmi <= 29.9)
+                    return("Overweight");
+                else if (bmi >= 30)
+                    return("Obesity");
+            }
+            return ("null");
+        }
+
+    }
+    }
+
+
+
+
+
+-----2.-------Time Validation------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string str = Console.ReadLine();
+
+            int ans = UserProgramCode.validateTime(str);
+
+            if (ans == 1)
+                Console.WriteLine("Valid time format");
+            else if (ans == -1)
+                Console.WriteLine("Invalid time format");
+            Console.ReadKey();
+        }
+    }
+}
+
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_2
+{
+    class UserProgramCode
+    {
+
+         public static int validateTime(string str)
+        {
+
+
+            int hr, min;
+        
+            hr = int.Parse(str.Substring(0, 2));
+            min = int.Parse(str.Substring(3, 2));
+            string suf = str.Substring(5, 3);
+        
+
+            if (hr > 12 || min > 60 || suf != " am" && suf != " pm")
+                return -1;
+            else
+                return 1;
+         
+
+        }
+    }
+    }
+
+
+-----3.-------IP Validator-------------------------
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            int a = UserProgramCode.ipValidator(s);
+
+            if (a == 1)
+            {
+                Console.WriteLine("Valid");
+            }
+            else
+            {
+                Console.WriteLine("Invalid");
+            }
+
+            Console.ReadKey();
+        }
+    }
+}
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_3
+{
+    class UserProgramCode
+    {
+        public static int ipValidator(string str)
+        {
+            int count = 0;
+            int start = 0;
+            int flag=0;
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] != '.')
+                {
+                    count++;
+                }
+                else
+                {
+
+                    string sub = str.Substring(start, count);
+                    start = start+ count + 1;
+                    count = 0;
+                    int g = Convert.ToInt32(sub);
+                    flag++;
+                    if (g < 0 || g > 255)
+                    {
+                        return -1;
+                    }
+                }
+
+            }
+
+            int nmb=Convert.ToInt32(str.Substring(start));
+            flag++;
+
+            if(nmb<0 || nmb>255)
+            {
+                return -1;
+            }
+            else if (flag != 4)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+       
+
+    }
+}
+----------4.-----------List the Elements--------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int n, i;
+            n = int.Parse(Console.ReadLine());
+            List<int> arr = new List<int>();
+            List<int> ans = new List<int>();
+            for (i = 0; i < n; i++)
+            {
+                arr.Add(int.Parse(Console.ReadLine()));
+            }
+            int limit = int.Parse(Console.ReadLine());
+             ans = UserProgramcode.GetElements(arr, limit);
+            if (ans[0] == -1)
+                Console.WriteLine("No element found");
+            else
+            {
+                foreach (var  item in ans)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            Console.ReadKey();
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_4
+{
+    class UserProgramcode
+    {
+        public static List<int> GetElements(List<int> arr, int limit)
+        {
+
+            int n = arr.Count;
+
+
+            List<int> temp = new List<int>();
+            int  j;
+
+
+          
+            for (j = 0; j < n; j++)
+            {
+                if (arr[j] > limit)
+                {
+                    temp.Add(arr[j]);
+                }
+            }
+
+            if (temp[0] == 0)
+            {
+                temp[0] = -1;
+                return temp;
+            }
+
+            else
+            {
+                temp.Sort();
+                temp.Reverse();
+                return temp;
+            }
+
+
+
+
+        }
+
+    }
+}
+
+------5.-----------------Class Division----------------
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+             int sub1, sub2, sub3, sub4, sub5;
+            sub1 = int.Parse(Console.ReadLine());
+            sub2 = int.Parse(Console.ReadLine());
+            sub3 = int.Parse(Console.ReadLine());
+            sub4 = int.Parse(Console.ReadLine());
+            sub5 = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(UserProgramCode.calculateResult(sub1, sub2, sub3, sub4, sub5));
+            Console.ReadKey();
+        }
+
+        }
+    }
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_5
+{
+    class UserProgramCode
+    {
+        public static string calculateResult(int sub1, int sub2, int sub3, int sub4, int sub5)
+        {
+            // int sub1,sub2,sub4,sub3,sub5;
+            int sum = sub1 + sub2 + sub3 + sub4 + sub5;
+
+            string str = "";
+            int avg = sum / 5;
+            if (avg >= 60)
+                str = "First Class";
+            else if (avg >= 50 && avg <= 59)
+                str = "Second Class";
+            else if (avg >= 40 && avg <= 49)
+                str = "Third Class";
+            else if (avg < 40)
+                str = "Failed";
+            return str;
+            
+        }
+
+    }
+}
+
+----6.--------------------Index power array-----------------------------
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_6
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int n = int.Parse(Console.ReadLine());
+            if (n > 0)
+            {
+                int[] a = new int[n];
+                for (int i = 0; i < n; i++)
+                {
+                    a[i] = int.Parse(Console.ReadLine());
+                }
+                int sum = UserProgramCode.getSumOfPower(n, a);
+                Console.WriteLine(sum);
+                Console.ReadKey();
+            }
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_6
+{
+    class UserProgramCode
+    {
+        public static int getSumOfPower(int size, int[] a)
+        {
+            int sum = 0;
+            for (int i = 0; i < size; i++)
+            {
+                sum += (int)Math.Pow(a[i], i);
+
+            }
+            return sum;
+            
+        }
+
+    }
+}
+
+------7.------------Count of Elements-------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+using System.Text.RegularExpressions;
+
+namespace L1_7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            string[] str = new string[n];
+            if (n > 0)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    str[i] = Console.ReadLine();
+                }
+                char c = char.Parse(Console.ReadLine());
+                int output = UserProgramCode.getCount(n, str, c);
+                if (output > 0)
+                {
+                    Console.WriteLine(output);
+                }
+                else if (output == -1)
+                {
+                    Console.WriteLine("No elements Found");
+                }
+                else if (output == -2)
+                {
+                    Console.WriteLine("Only alphabets should be given");
+                }
+            }
+            Console.ReadKey();
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+using System.Text.RegularExpressions;
+
+namespace L1_7
+{
+    class UserProgramCode
+    {
+
+        public static int getCount(int size, string[] str, char c)
+        {
+            int count = 0;
+            char c_cap = c;
+            char c_small = c;
+            Regex reg = new Regex(@"^([A-Za-z]{1,})$");
+            foreach (string s in str)
+            {
+
+                if (!reg.IsMatch(s))
+                    return -2;
+                string ch = c.ToString();
+                if (c >= 97 && c <= 122)
+                {
+                    c_cap = (char)((int)(c) - 32);
+
+                }
+                else if (c >= 65 && c <= 90)
+                {
+                    c_small = (char)((int)(c) + 32);
+                }
+
+                char[] inp = s.ToCharArray();
+
+
+                if (c_small == inp[0] || c_cap == inp[0])
+                    count++;
+
+            }
+            if (count >= 1)
+            {
+                return count;
+            }
+            else
+                return -1;
+        }
+    }
+}
+
+
+
+------8.-------Is – Is Not---------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_8
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            string output = UserProgramCode.negativeString(s);
+            Console.WriteLine(output);
+            Console.ReadKey();
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_8
+{
+    class UserProgramCode
+    {
+
+        public static string negativeString(string str)
+        {
+            string neg_string = null;
+            string[] str1 = str.Split(' ');
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < str1.Length; i++)
+            {
+
+                if (str1[i].Equals("is"))
+                {
+                    sb.Append("is not ");
+                }
+                else
+                {
+                    sb.Append(str1[i] + " ");
+                }
+            }
+            neg_string = sb.ToString();
+            return neg_string;
+        }
+    }
+}
+
+----9.---------Sum of Squares------------------
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_9
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int n = int.Parse(Console.ReadLine());
+            int result = UserProgramCode.sumSquare(n);
+            if (result == -1)
+            {
+                Console.WriteLine(-1);
+            }
+            else
+            {
+                Console.WriteLine(result);
+            }
+            Console.ReadKey();
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_9
+{
+    class UserProgramCode
+    {
+
+        public static int sumSquare(int n)
+        {
+            int sum = 0;
+            if (n < 0)
+                return -1;
+            for (int i = 1; i <= n; i++)
+            {
+                sum += (int)Math.Pow(i, 2);
+            }
+            return sum;
+        }
+    }
+}
+------10.---------Cattle Graze-------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_10
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine(UserProgramCode.calculateArea(n).ToString("#0.00"));
+            Console.ReadKey();
+
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace L1_10
+{
+    class UserProgramCode
+    {
+        public static double calculateArea(int n)
+        {
+            double area = 0;
+            area = Math.Round((3.14 * n * n), 2);
+            return area;
+
+        }
+
+    }
+}
+
+
+11.Reverse Substring
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Reverse_Substring
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string str = Console.ReadLine();
+            int start = Convert.ToInt32(Console.ReadLine());
+            int len = Convert.ToInt32(Console.ReadLine());
+            string str2 = UserProgramCode.reverseSubstring(str, start, len);
+            Console.WriteLine(str2);
+            Console.ReadLine();
+        }
+    }
+}
+
+
+
+  namespace Reverse_Substring
+    {
+    class UserProgramCode
+    {
+            public static string reverseSubstring(string str, int start, int len)
+            {
+                
+                char[] ch = str.ToCharArray();
+                Array.Reverse(ch);
+                string s_new = new string(ch);
+               string s = s_new.Substring(start, len);
+
+                return s;
+                
+
+            }
+        }
+      }
+--------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+12.Shipping_Cost
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Shipping_Cost
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int gms = Convert.ToInt32(Console.ReadLine());
+            char ch = Convert.ToChar(Console.ReadLine());
+            Console.WriteLine(UserProgramCode.CalcShippingCost(gms, ch));
+            Console.ReadLine();
+        }
+    }
+}
+
+
+
+namespace Shipping_Cost
+{
+    class UserProgramCode
+    {
+        public static double CalcShippingCost(int gms, char ch)
+        {
+            double temp;
+            if (ch == 'R')
+            {
+                if (gms <= 2000)
+                    return gms * 0.25;
+                else
+                {
+                    temp = 2000 * 0.25;
+                    return temp + ((gms - 2000) * 0.35);
+                }
+            }
+            else if (ch == 'X')
+            {
+                if (gms <= 2000)
+                    return gms * 0.25 + 50;
+                else
+                {
+                    temp = gms * 0.25;
+                    return temp + ((gms - 2000) * 0.35) + 50;
+                }
+            }
+            else
+                return 0;
+        }
+    }
+
+}
+
+
+----------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+
+13.Valid Negative Number
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Valid_Negative_Number
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string str = Console.ReadLine();
+            string x=UserProgramCode.validateNumber(str);
+            if(x=="-1")
+                Console.WriteLine("Invalid number");
+            else
+                Console.WriteLine(x);
+                Console.ReadLine();
+        }
+    }
+}
+
+
+namespace Valid_Negative_Number
+{
+    public class UserProgramCode
+    {
+        public static string validateNumber(string str)
+        {
+            str.ToCharArray();
+            int temp = 0;
+            if (str[0] == '-')
+            {
+                for (int i = 0; i < str.Length; i++)
+                    if (str[i] >= 48 && str[i] <= 57)
+                        temp = 1;
+                    else
+                        temp = 0;
+                if (temp == 1)
+                {
+                    str = str.Substring(1, str.Length - 1);
+                    return str.ToString();
+                }
+                else
+                    return "-1";
+            }
+            else
+                return "-1";
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+14.Add non Common Elements
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Valid_Negative_Number
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int m = Convert.ToInt32(Console.ReadLine());
+            int[] ar1 = new int[n];
+            int[] ar2 = new int[m];
+            for (int i = 0; i < n; i++)
+                ar1[i] = Convert.ToInt32(Console.ReadLine());
+            for (int i = 0; i < m; i++)
+                ar2[i] = Convert.ToInt32(Console.ReadLine());
+            int flag = UserProgramCode.sumNonCommonElement(ar1, n, ar2, m);
+            if (flag == -1)
+                Console.WriteLine("Input 1 has negative numbers");
+            else if (flag == -2)
+                Console.WriteLine("Input 2 has negative numbers");
+            else if (flag == -3)
+                Console.WriteLine("Both inputs has negative numbers");
+            else
+                Console.WriteLine(flag);
+                Console.ReadLine();
+        }
+    }
+}
+
+
+namespace Valid_Negative_Number
+{
+    public class UserProgramCode
+    {
+        public static int sumNonCommonElement(int[] ar1, int n, int[] ar2, int m)
+        {
+            int a = 0, b = 0;
+          for (int i = 0; i < n; i++)
+                if (ar1[i] < 0)
+                    a = 1;
+           for (int j = 0; j < m; j++)
+               if (ar2[j] < 0)
+                   b = 1;
+
+                 if (a == 1 && b == 0)
+                            return -1;
+                        else if (b == 1 && a == 0)
+                            return -2;
+                        else if (a == 1 && b == 1)
+                            return -3;
+                        else
+                        {
+                          var  a1 = from s1 in ar1
+                                 where !ar2.Contains(s1)
+                                 select s1;
+
+                            
+
+                          var  a2 = from s2 in ar2
+                                 where !ar1.Contains(s2)
+                                 select s2;
+
+                          
+
+                            int result = a1.Sum() + a2.Sum();
+                            return result;
+
+                        }
+                             
+
+        }
+    }
+}
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+15.Get the longest string
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace Get_the_longest_string
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n=Convert.ToInt32(Console.ReadLine());
+              List<string> s=new List<string>();
+              for (int i = 0; i < n; i++)
+                  s.Add(Console.ReadLine());
+            char c=Convert.ToChar(Console.ReadLine());
+            Console.WriteLine(UserProgramCode.getLongestString(s,c));
+             Console.ReadLine();
+        }
+    }
+}
+
+namespace Get_the_longest_string
+{
+     class UserProgramCode
+    {
+         public static String getLongestString(List<string> s, char c)
+         {
+             int max=0,flag=0;
+             char c1 = char.ToUpper(c);
+             char c2 = char.ToLower(c);
+             string max1=null;
+             Regex exp = new Regex(@"^(a-zA-Z)$");
+             for(int i=0;i<s.Count;i++)
+             {
+                 if (!exp.IsMatch(s[i]))
+
+                     return "String contains non alphabetic characters";
+                 else
+                 {
+                     char[] arr = s[i].ToCharArray();
+
+                     if (arr[0] == c1 || arr[0] == c2)
+                     {
+                         if (s[i].Length > max)
+                         {
+                             flag = 1;
+                             max = s[i].Length;
+                             max1 = s[i];
+                         }
+                     }
+                 }
+               }
+             if (flag == 0)
+                 return "No elements found ";
+             else
+                 return max1;
+         }
+    }
+}
+
+-------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+16.Length of the longest string
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace Length_of_the_longest_string
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n=Convert.ToInt32(Console.ReadLine());
+              List<string> s=new List<string>();
+              for (int i = 0; i < n; i++)
+                  s.Add(Console.ReadLine());
+
+              Console.WriteLine(UserProgramCode.longestWordLength(s));
+             Console.ReadLine();
+        }
+    }
+}
+
+
+namespace Length_of_the_longest_string
+{
+    class UserProgramCode
+    {
+        public static int longestWordLength(List<string> s)
+        {
+            int max = 0;
+
+            for (int i = 0; i < s.Count; i++)
+            {
+                if (s[i].Length > max)
+
+                    max = s[i].Length;
+            }
+            return max;
+        }
+    }
+}
+
+
+---------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+17.Get All Elements
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace _Get_All_Elements
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n=Convert.ToInt32(Console.ReadLine());
+              List<int> s=new List<int>();
+              for (int i = 0; i < n; i++)
+                  s.Add(Convert.ToInt32(Console.ReadLine()));
+              List<int> a = new List<int>();
+              a = UserProgramCode.GetAllElements(s,n);
+            
+              if (a[0] == -1)
+                  Console.WriteLine("Array element greater than 500");
+              else
+              {
+                  foreach(var s1 in a)
+                      Console.WriteLine(s1);
+              }
+              
+             Console.ReadLine();
+        }
+    }
+}
+
+
+
+namespace _Get_All_Elements
+{
+    class UserProgramCode
+    {
+        public static List<int> GetAllElements(List<int> s,int n)
+        {
+          
+            List<int> a=new List<int>();
+            for (int i = 0; i < n; i++)
+            {
+                if (s[i] > 500)
+                {
+                    a[0] = -1;
+                    break;
+                }
+                else
+                {
+                    if (s[i] > 5)
+                        a.Add(s[i]);
+                }
+            }
+             return a;
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+18.Sum Common Elements
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace Sum_Common_Elements
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int m=Convert.ToInt32(Console.ReadLine());
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            int[] arr1 = new int[m];
+              for (int i = 0; i < m; i++)
+                 arr1[i]=Convert.ToInt32(Console.ReadLine());
+
+              int[] arr2 = new int[n];
+              for (int i = 0; i < n; i++)
+                  arr2[i] = Convert.ToInt32(Console.ReadLine());
+              int a = UserProgramCode.getSumOfIntersection(arr1,arr2,m, n);
+            
+              if (a == -1)
+                  Console.WriteLine("No common elements found");
+              else
+                  Console.WriteLine(a);
+              
+             Console.ReadLine();
+        }
+    }
+}
+
+
+namespace Sum_Common_Elements
+{
+    class UserProgramCode
+    {
+        public static int getSumOfIntersection(int[] arr1,int[] arr2, int m,int n)
+        {
+
+            int sum=0;
+            var a = from s in arr1
+                    where arr2.Contains(s)
+                    select s;
+
+            sum = a.Sum();
+
+            if (sum == 0)
+                return -1;
+            else
+                return sum;
+                 
+
+ 
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
+19.Find largest digit in a given number
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace Find_largest_digit_in_a_given_number
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int m=Convert.ToInt32(Console.ReadLine());
+           
+              
+              int a = UserProgramCode.findLargestDigit(m);
+            
+              if (a == -1)
+                  Console.WriteLine("The number should be a positive number");
+              else
+                  Console.WriteLine(a);
+              
+             Console.ReadLine();
+        }
+    }
+}
+
+
+
+namespace Find_largest_digit_in_a_given_number
+{
+    class UserProgramCode
+    {
+        public static int findLargestDigit(int m)
+        {
+            int max=0;
+
+            if(m<0)
+                return -1;
+            else
+            {
+            while (m > 0)
+              {
+                int temp = m % 10;
+                if (max < temp)
+                    max = temp;
+                m = m / 10;
+              }
+            }
+            return max;
+ 
+        }
+    }
+}
+                     
+-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+
+20.Sum Of Digits
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections;
+
+namespace Sum_Of_Digits 
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string m=Console.ReadLine();
+           
+              
+              int a = UserProgramCode.sumOfDigits(m);
+            
+              if (a == -1)
+                  Console.WriteLine("No digit present");
+              else
+                  Console.WriteLine(a);
+              
+             Console.ReadLine();
+        }
+    }
+}
+
+
+namespace Sum_Of_Digits
+{
+    class UserProgramCode
+    {
+        public static int sumOfDigits(string m)
+        {
+            int sum=0;
+            char[] arr = m.ToCharArray();
+            for (int i = 0; i < m.Length; i++)
+                if (arr[i] >= 48 && arr[i] <= 57)
+                    sum = sum + Convert.ToInt32(arr[i])-48;
+            if (sum == 0)
+                return -1;
+            else
+                return sum;
+ 
+        }
+    }
+}
+-------------------------------------------------------------------------------------
+
+
+21.String Encryption
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _21Encryption
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+
+            string str = Console.ReadLine();
+            string s1 = UserProgramCode.method1(str);
+            Console.WriteLine(s1);
+            Console.ReadLine();
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _21Encryption
+{
+    class UserProgramCode
+    {
+        public static string method1(string s)
+        {
+            int i = 0, a = 0;
+            StringBuilder sb = new StringBuilder();
+            for (i = 0; i < s.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    if (s[i] == 'z')
+                        sb.Append('a');
+                    else
+                    {
+                        a = Convert.ToInt16(s[i]);
+                        //Console.WriteLine(a);
+                        a = a + 1;
+                        sb.Append(Convert.ToChar(a));
+                    }
+                }
+                else
+                    sb.Append(s[i]);
+            }
+            return sb.ToString();
+        }
+    }
+}
+
+22.Arithmetic Operation
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _22ArithmeticExpr
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = int.Parse(Console.ReadLine());
+            int b = int.Parse(Console.ReadLine());
+            int c = int.Parse(Console.ReadLine());
+            int s1 = UserProgramCode.arithmeticOperation(a, b, c);
+            if (s1 == -1)
+                Console.WriteLine("Invalid Operator");
+            else if (s1 == -2)
+                Console.WriteLine("Invalid Operands");
+            else
+                Console.WriteLine(s1);
+            Console.ReadLine();
+
+
+
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _22ArithmeticExpr
+{
+    class UserProgramCode
+    {
+        public static int arithmeticOperation(int a, int b, int c)
+        {
+            if (a > 0 && a < 5)
+            {
+                if (b < 0 || c < 0)
+                    return -2;
+                else
+                    if (a == 1)
+                        return b + c;
+                    else if (a == 2)
+                        return b - c;
+                    else if (a == 3)
+                        return b * c;
+                    else
+                        return b / c;
+            }
+            else
+                return -1;
+        }
+
+    }
+}
+
+23.Get Middle Characters
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _23MiddleChars
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string str = Console.ReadLine();
+
+            string s1 = UserProgramCode.getMiddleChars(str);
+            Console.WriteLine(s1);
+
+            Console.ReadLine();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _23MiddleChars
+{
+    class UserProgramCode
+    {
+        public static string getMiddleChars(string s)
+        {
+            int i = 0;
+            StringBuilder sb = new StringBuilder();
+            if (s.Length % 2 == 0)
+            {
+                i = s.Length / 2;
+                sb.Append(s[i - 1]);
+                sb.Append(s[i]);
+            }
+            return sb.ToString();
+        }
+    }
+}
+
+
+24.Add Days
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _24AddDays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            int i = Convert.ToInt16(Console.ReadLine());
+            string s1 = UserProgramCode.addDays(s, i);
+            if (s1 == "-1")
+                Console.WriteLine("n value is negative");
+            else if (s1 == "-2")
+                Console.WriteLine("Invalid date format");
+            else
+            Console.WriteLine(s1);
+
+            Console.ReadLine();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _24AddDays
+{
+    class UserProgramCode
+    {
+
+        public static string addDays(string s, int a)
+        {
+            DateTime dt1;int r;
+            bool res = DateTime.TryParseExact(s, "MM/dd/yyyy",null, System.Globalization.DateTimeStyles.None, out dt1);
+            if (a < 0)
+            {
+                r = -1; 
+            }
+            else if (!res)
+            {
+                r = -2;
+            }
+            else
+            {
+                return dt1.AddDays(a).ToString("MM/dd/yyyy");
+            }
+            return r.ToString();
+        }
+    }
+}
+
+
+25.Sum Of Squares Of Even Digits
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _25SumOfSquareofEvenDigits
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int i = Convert.ToInt32(Console.ReadLine());
+            int s1 = UserProgramCode.sumOfSquareofEvenDigits(i);
+
+            Console.WriteLine(s1);
+
+            Console.ReadLine();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _25SumOfSquareofEvenDigits
+{
+    class UserProgramCode
+    {
+
+        public static int sumOfSquareofEvenDigits(int a)
+        {
+            int sum = 0,num;
+            while (a > 0)
+            {
+                num = a % 10;
+                if (num % 2 == 0)
+                {
+                    sum = sum + (num * num);
+                }
+                a = a / 10;
+            }
+            return sum;
+                
+           
+        }
+    }
+}
+  
+26.Colour Code
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace colour_code
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a = Console.ReadLine();
+            int result = userProgramCOde.validateColorcode(a);
+            if (result == 1)
+            {
+                Console.WriteLine("valid");
+            }
+            else if (result == -1)
+            {
+                Console.WriteLine("invalid");
+            }
+            Console.ReadKey();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace colour_code
+{
+    class userProgramCOde
+    {
+          public static int validateColorcode(string a)
+          {
+              Regex myregex = new Regex(@"^[#][A-Z0-9]{6}$");
+              if (myregex.IsMatch(a))
+              {
+                  return 1;
+              }
+              else
+              {
+                  return -1;
+              }
+
+          }
+              
+
+    }
+}
+
+
+
+
+
+
+
+27.Fibonacci Series
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _21
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int a = Convert.ToInt32(Console.ReadLine());
+            int result = userProgramCode.getSumOfNfibos(a);
+                Console.WriteLine (result );
+            Console.ReadKey ();
+        }
+    }
+    }
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _21
+{
+    class userProgramCode
+    {
+
+        public static int getSumOfNfibos(int n)
+        {
+            int a = 0, b = 1;
+            int sum=0,output=0;
+            if(n > 1)
+            {
+                for (int i = 0; i <= n; i++)
+                {
+                    sum = a + b;
+                    b=a;
+                    a = sum;
+                    output =sum+output ;
+                    
+                }
+            }
+            return sum;
+                                                                                                                                                          
+        }
+
+    }
+
+
+28.Shortest Length
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _28Shortestlength
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            string[] s=new string[n];
+            for (int i = 0; i < n; i++)
+            {
+                s[i] = Console.ReadLine();
+            }
+
+            int min = UserProgramCode.shortestWordLength(s);
+            Console.WriteLine(min);
+            Console.ReadKey();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _28Shortestlength
+{
+    class UserProgramCode
+    {
+        public static int shortestWordLength(string[] s)
+        {
+            int min = s[0].Length;
+            for (int i = 1; i < s.Length; i++)
+            {
+                if (s[i].Length < min)
+                {
+                    min = s[i].Length;
+                }
+            }
+            return min;
+
+        }
+    }
+}
+
+
+29.Calculate Bill
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _29CalculateBill
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s1 = Console.ReadLine();
+            string s2 = Console.ReadLine();
+            int n=Convert.ToInt32(Console.ReadLine());
+            int res = UserProgramCode.calculateBill(s1, s2, n);
+            Console.WriteLine(res);
+            Console.ReadKey();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _29CalculateBill
+{
+    class UserProgramCode
+    {
+        public static int calculateBill(string str1, string str2, int n)
+        {
+            string s1 = str1.Substring(5);
+            string s2 = str2.Substring(5);
+            int old=Convert.ToInt32(s1);
+             int newR=Convert.ToInt32(s2);
+            int bill=(newR-old)*n;
+
+            return bill;
+
+        }
+
+    }
+}
+
+
+30.Calculate the sum of cube
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _30Sum0fCube
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int res = UserProgramCode.sumOfCube(n);
+            if (res == -1)
+            {
+                Console.WriteLine("The input is not a natural number");
+
+            }
+            else
+                Console.WriteLine(res);
+
+            Console.ReadKey();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _30Sum0fCube
+{
+    class UserProgramCode
+    {
+        public static int sumOfCube(int n)
+        {
+            int res,sum=0;
+            if (n < 1)
+            {
+                return -1;
+            }
+            else
+            {
+                for (int i = 1; i <= n; i++)
+                {
+                    sum = sum + (int)Math.Pow(i, 3);
+                }
+            }
+            return sum;
+                
+        }
+    }
+}
+
+
+31.Form New Word
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q31
+{
+     class Program
+    {
+        static void Main(string[] args)
+        
+        {
+            string s;
+            int n;
+            UserProgramCode u = new UserProgramCode();
+            s = Console.ReadLine();
+            n = int.Parse(Console.ReadLine());
+            s = UserProgramCode.formNewWord(s,n);
+            Console.WriteLine(s);
+           
+        }
+        }
+    }
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q31
+{
+    class UserProgramCode
+    {
+        public static string formNewWord(string s,int n)
+        {
+            string c;
+        int a,b;
+            a=s.Length;
+            if(a>=2*n)
+            {
+            b=a-n;
+            c=s.Substring(0,n) + s.Substring(b,n);
+                return c;
+            }
+            else
+                return "";
+           
+        }
+
+
+    }
+}
+------------------------------------------------------------------------------------------
+
+32.CheckCharacters
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q32
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s;
+            string n;
+            
+            UserProgramCode u = new UserProgramCode();
+            s = Console.ReadLine();
+
+            n = UserProgramCode.checkCharacters(s);
+            Console.WriteLine(n);
+
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q32
+{
+    class UserProgramCode
+    {
+        public static string checkCharacters(string s)
+        {
+            int a,n1;
+            string x, y;
+            a = s.Length;
+            n1 = a - 1;
+            x = s.Substring(0, 1);
+            y=s.Substring(n1,1);
+            if (x == y)
+                return "same";
+            else
+                return "diff";
+        }
+
+    }
+}
+-------------------------------------------------------------------------------------------
+
+33.Count Characters
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q33
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s;
+            int n;
+            UserProgramCode u = new UserProgramCode();
+            s = Console.ReadLine();
+            n = UserProgramCode.countCharacters(s);
+            Console.WriteLine(n);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q33
+{
+    class UserProgramCode
+    {
+        public static int countCharacters(string s)
+        {
+            int a;
+            a = s.Length;
+            return a;
+        }
+            
+    }
+}
+------------------------------------------------------------------------------------------
+
+34.Validate ID Locations
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q34
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s;
+            string n;
+            s = Console.ReadLine();
+            n=Console.ReadLine();
+            UserProgramCode u = new UserProgramCode();
+            int a=UserProgramCode.validateIDLocations(s,n);
+            Console.WriteLine(a);
+
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q34
+{
+    class UserProgramCode
+    {
+        public static int validateIDLocations(string s, string n)
+        {
+            int flag = 0, flag1 = 0;
+            string a;
+            string[] words = new string[s.Length];
+            words = s.Split('-');
+            if (words.Length == 3)
+            {
+                if (flag == 0)
+                {
+                    if (words[0] == "CTS")
+                    {
+                        a = n.Substring(0, 3);
+                        if (words[1] == a)
+                        {
+                            int j;
+                            bool result = int.TryParse(words[2], out j);
+
+                            if (result == true)
+                            {
+                                if (words[2].Length == 4)
+
+                                    flag1 = 1;
+                            }
+                        }
+                    }
+                }
+            }
+            if (flag1 == 1)
+                return 1;
+            else
+                return -1;
+        }
+
+    }
+}
+
+--------------------------------------------------------------------------------------------
+
+35.String Manipulation
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q35
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s1, s2;
+            string n;
+            s1 = Console.ReadLine();
+            s2 = Console.ReadLine();
+            UserProgramCode u = new UserProgramCode();
+            n=UserProgramCode.stringManipulation(s1,s2);
+            Console.WriteLine(n);
+     }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q35
+{
+    class UserProgramCode
+    {
+        public static string stringManipulation(string s1,string s2)
+        {
+            int a=s1.Length;
+            int b=0,c=0;
+            int count=0;
+            if(a%2==0)
+                b=c=a/2;
+            else
+            {
+                b=a/2+1;
+                c=a-b;
+            }
+            
+           char[] rev=s2.ToCharArray();
+           Array.Reverse(rev);
+
+          
+                    string some = new string(rev);
+                    
+                    
+            string n=s1.Substring(0,b)+some+ s1.Substring(b,c);
+
+            
+
+            for (int j = 0; j < n.Length; j++)
+            {
+                
+                if (!Char.IsLetterOrDigit(n[j]))
+                    count++;
+            }
+            if (count != 0)
+                return "Special character found";
+            else
+            
+                    return n;
+                
+          
+            }
+
+    }
+}
+---------------------------------------------------------------------------------------
+
+36.Check Sum
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q36
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            n = Convert.ToInt32(Console.ReadLine());
+            UserProgramCode u = new UserProgramCode();
+            int p = UserProgramCode.checkSum(n);
+            if(p==1)
+                Console.WriteLine("Odd");
+            else
+                Console.WriteLine("Even");
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q36
+{
+    class UserProgramCode
+    {
+        public static int checkSum(int n)
+        {
+            int sum = 0, temp;
+            while (n != 0)
+            {
+                temp = n % 10;
+                n = n / 10;
+                if (temp % 2 != 0)
+                    sum += temp;
+            }
+            if (sum % 2 == 0)
+                return -1;
+            else 
+                return 1;
+        }
+
+    }
+}
+-------------------------------------------------------------------------------------------
+
+37.Find Gift Voucher
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n1, n2;
+            n1 = Convert.ToInt32(Console.ReadLine());
+            n2 = Convert.ToInt32(Console.ReadLine());
+            UserProgramCode u = new UserProgramCode();
+            int n = UserProgramCode.findGiftVoucher(n1, n2);
+            if(n==-1)
+            Console.WriteLine("Invalid Input");
+            else
+                Console.WriteLine(n);
+
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q37
+{
+    class UserProgramCode
+    {
+        public static int findGiftVoucher(int n1, int n2)
+        {
+            int result;
+
+            int sum;
+            if (n1 >= 1 && n1 <= 6 && n2 >= 1 && n2 <= 6)
+            {
+
+                sum = n1 + n2;
+                if (sum == 2 || sum == 3 || sum == 6 || sum == 11)
+                    result = 1000;
+                else if (sum == 4 || sum == 7 || sum == 10)
+                    result = 3000;
+                else
+                    result = 5000;
+                return result;
+            }
+            else
+                return -1;
+        }
+    }
+}
+--------------------------------------------------------------------------------------------
+
+
+38.Find the Shortest String
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q38
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            char input2;
+            n = Convert.ToInt32(Console.ReadLine());
+            List<string> input1 = new List<string>(n);
+            for(int i=0;i<n;i++)      
+                input1.Add(Console.ReadLine());
+            input2 = Convert.ToChar(Console.ReadLine());
+            UserProgramCode u = new UserProgramCode();
+            string res = UserProgramCode.GetshortestString(input1, input2);
+            Console.WriteLine(res);
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q38
+{
+    class UserProgramCode
+    {
+        public static string GetshortestString(List<string> input1, char input2)
+        {
+            int flag = 0;
+            string m = input1[0];
+            for (int i = 0; i < input1.Count; i++)
+            {
+                for (int j = 0; j < input1[i].Length; j++)
+                {
+                    char a = input1[i][j];
+                    if (!Char.IsLetter(a))
+                        flag = 1;
+                }
+            }
+            if (flag != 1)
+            {
+                for (int i = 0; i < input1.Count; i++)
+                {
+                    char b = input1[i][0];
+                    if (b == input2)
+                        flag++;
+                }
+                if (flag == 0)
+                    flag = 2;
+                else
+                {
+
+                    for (int i = 0; i < input1.Count; i++)
+                    {
+                        if (input1[i][0] == input2)
+                        {
+                            if (input1[i].Length < m.Length)
+                                m = input1[i];
+                        }
+                    }
+                    flag = -1;
+                }
+            }
+            if (flag == 1)
+                return "Non Alphabets Exists";
+            else if (flag == 2)
+                return "No String Found";
+            else
+                return m;
+        }
+
+    }
+}
+------------------------------------------------------------------------------------------
+
+
+39.Reverse Number
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q39
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a;
+            a = Convert.ToInt32(Console.ReadLine());
+            UserProgramCode u = new UserProgramCode();
+            int b = UserProgramCode.reverseNumber(a);
+            Console.WriteLine(b);
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q39
+{
+    class UserProgramCode
+    {
+        public static int reverseNumber(int a)
+        {
+            int c;
+            int sum = 0;
+            while (a != 0)
+            {
+                c = a % 10;
+                a = a / 10;
+                
+                sum = sum * 10 + c;          
+                }
+            return sum;
+        }         
+            
+    }
+}
+-----------------------------------------------------------------------------------------
+
+
+40.String Finder
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q40
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string Searchstring, Str1, Str2;
+            Searchstring = Console.ReadLine();
+            Str1 = Console.ReadLine();
+            Str2 = Console.ReadLine();
+            UserProgramCode u = new UserProgramCode();
+            int n = UserProgramCode.stringFinder(Searchstring, Str1, Str2);
+                if(n==1)
+                    Console.WriteLine("Yes");
+                else
+                    Console.WriteLine("No");
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q40
+{
+    class UserProgramCode
+    {
+        public static int stringFinder(string Searchstring, string Str1, string Str2)
+        {
+            int count1 = 0, count2 = 0;
+            int l1 = Str1.Length;
+            int l2 = Str2.Length;
+            for (int i = 0; i < Searchstring.Length; i++)
+            {
+                if (Str1[0] == Searchstring[i])
+                {
+                    if (Str1 == Searchstring.Substring(i, l1))
+                        count1 = i;
+                }
+            }
+            for (int i = 0; i < Searchstring.Length; i++)
+            {
+                if (Str2[0] == Searchstring[i])
+                {
+                    if (Str2 == Searchstring.Substring(i, l2))
+                        count2 = i;
+                }
+            }
+            if (count1 < count2)
+                return 1;
+            else
+                return 2;
+        }
+    }
+}
+-------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q44
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //q41 to q43 is repeated
+            int year, month;
+            year = Convert.ToInt32(Console.ReadLine());
+            month = Convert.ToInt32(Console.ReadLine());
+            UserProgramCode u = new UserProgramCode();
+            int n = UserProgramCode.getNumberOfDays(year, month);
+            Console.WriteLine(n);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q44
+{
+    class UserProgramCode
+    {
+        public static int getNumberOfDays(int year, int month)
+        {
+            int leap = 0;
+            if (year % 4 == 0)
+            {
+                if (year % 400 != 0 && year % 100 == 0)
+                    leap = 0;
+                else
+                    leap = 1;
+            }
+            int[] a = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+            if (leap == 0 || (leap==1 &&  month != 1))
+                return a[month];
+            else
+                return 29;          
+            }
+        }
+
+
+
+}
+
+-------------------------------------------------------------------------------------
+
+
+45.Find Lowest
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q45
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            int a;
+            n=Convert.ToInt32(Console.ReadLine());
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = Convert.ToInt32(Console.ReadLine());
+                   
+            }
+                 UserProgramCode u = new UserProgramCode();
+                a = UserProgramCode.findLowest(n,arr);
+            if(a==-1)
+                Console.WriteLine("Negative numbers present");
+            else
+ 
+                Console.WriteLine(a);
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q45
+{
+    class UserProgramCode
+    {
+        public static int findLowest(int n, int[] arr)
+        {
+            int lowest = arr[0];
+            for (int i = 0; i < n; i++)
+            {
+                if (arr[0] < 0)
+                    return -1;
+                else
+                {
+                    if (arr[i] < lowest)
+                        lowest = arr[i];
+                }
+            }
+            return lowest;
+        }
+    }
+}
+------------------------------------------------------------------------------------
+
+
+46.Find Average
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q46
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            n = Convert.ToInt32(Console.ReadLine());
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++)
+                arr[i] = Convert.ToInt32(Console.ReadLine());
+            UserProgramCode u = new UserProgramCode();
+            float a = UserProgramCode.findAverage(n, arr);
+            if(a==-1)
+                Console.WriteLine("Negative numbers present");
+            else
+                Console.WriteLine(a);
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q46
+{
+    class UserProgramCode
+    {
+        public static float findAverage(int n, int[] arr)
+        {
+            float avg = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (arr[i] < 0)
+                    return -1;
+                else                
+                    avg = avg + arr[i];               
+            }
+            avg = avg / n;
+            return avg;
+        }
+
+    }
+}
+
+-------------------------------------------------------------------------------------------
+
+47.Validate Phone Number
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q47
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string num = Console.ReadLine();
+            UserProgramCode u = new UserProgramCode();
+            int n = UserProgramCode.validatePhoneNumber(num);
+            if(n==1)
+                Console.WriteLine("Valid");
+            else
+                Console.WriteLine("Invalid");
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+namespace q47
+{
+    class UserProgramCode
+    {
+        public static int validatePhoneNumber(string num)
+        {
+            int count = 0, flag = 0;
+            for (int i = 0; i < num.Length; i++)
+            {
+                if (Char.IsDigit(num[i]))
+                    count++;
+                if (!(Char.IsDigit(num[i]) || num[i] == '-'))
+                    flag = 1;
+            }
+            if (count == 10 && flag == 0)
+                return 1;
+            else
+                return 2;
+        }
+
+
+
+
+
+    }
+}
+-----------------------------------------------------------------------------------------
+
+48.Check Supply
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q48
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int stock, cus_order;
+            string credit;
+            stock = Convert.ToInt32(Console.ReadLine());
+            cus_order = Convert.ToInt32(Console.ReadLine());
+            credit = Console.ReadLine();
+            UserProgramCode u = new UserProgramCode();
+            int n = UserProgramCode.checkSupply(stock, cus_order, credit);
+            if(n==1)
+                Console.WriteLine("Supply");
+            else if(n==2)
+                Console.WriteLine("Cannot Supply");
+            else if(n==3)
+                Console.WriteLine("Out Of Stock");
+            else
+                Console.WriteLine("Balance Will Be Shipped Later");
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q48
+{
+    class UserProgramCode
+    {
+        public static int checkSupply(int stock, int cus_order, string credit)
+        {
+            if (credit == "false")
+                return 2;
+            else
+            {
+                if (stock == 0)
+                    return 3;
+                else if (cus_order <= stock)
+                    return 1;
+                else
+                    return 4;
+            }
+        }
+
+    }
+}
+----------------------------------------------------------------------------------------------
+
+49.Count Characters
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q49
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a;
+            a=Convert.ToInt32(Console.ReadLine());
+            string[] arr = new string[a];            
+            for(int i=0;i<a;i++)
+                arr[i]=Console.ReadLine();
+            UserProgramCode u = new UserProgramCode();
+            int n = UserProgramCode.countCharacters(a, arr);
+            if(n==-1)
+                Console.WriteLine("Invalid Input");
+            else
+                Console.WriteLine(n);
+
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q49
+{
+    class UserProgramCode
+    {
+        public static int countCharacters(int n, string[] a)
+        {
+            int count = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                for (int j = 0; j < a[i].Length; j++)
+                {
+                    if (Char.IsLetter(a[i][j]))
+                        count++;
+                    else
+                        return -1;
+                }
+            }
+            return count;
+        }
+
+    }
+}
+---------------------------------------------------------------------------------------------
+
+
+50.Get Big Diff
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q50
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            n = Convert.ToInt32(Console.ReadLine());
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++)
+                arr[i] = Convert.ToInt32(Console.ReadLine());
+            UserProgramCode u = new UserProgramCode();
+            int a = UserProgramCode.getBigDiff(n, arr);
+            Console.WriteLine(a);
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace q50
+{
+    class UserProgramCode
+    {
+        public static int getBigDiff(int n,int[] arr)
+        {
+            int high=arr[0],low=arr[0];
+            for(int i=0;i<n;i++)
+            {
+                if(arr[i]>high)
+                    high=arr[i];
+                if (arr[i] < low)
+                    low = arr[i];
+            }
+            int diff=high-low;
+            return diff;
+        }
+
+    }
+}
+
+
+
+
+
+
+
+51. Calculate the efficiency
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program51
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            float e = float.Parse(Console.ReadLine());
+            string res = UserProgramCode.calcefficiency(e);
+            Console.WriteLine(res);
+            Console.ReadKey();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program51
+{
+    class UserProgramCode
+    {
+        public static string calcefficiency(float e)
+        {
+            if (e >= 1 && e <= 3)
+            {
+                return "Highly Efficient";
+            }
+            else if ((e > 3) && (e <= 4))
+            {
+
+                return "Improve speed";
+            }
+            else if ((e > 4) && (e <= 5))
+            {
+                return "Need Training";
+
+            }
+            else if (e > 5)
+            {
+                return "Leave the company";
+
+            }
+            else
+            {
+                return "Invalid Input";
+            }
+        }
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------
+52. Remove Vowels from Even Position
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program52
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a = Console.ReadLine();
+            string res = UserProgramCode.removeEvenVowels(a);
+            Console.WriteLine(res);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program52
+{
+    class UserProgramCode
+    {
+        public static string removeEvenVowels(string a)
+        {
+            int b = a.Length;
+            for(int i=1;i<b;i+=2)
+            {
+               if(((a[i] == 'a') || (a[i] == 'e') || (a[i] =='i') || (a[i] == 'o') || (a[i] == 'u')))
+                {
+                   a=a.Remove(i,1);
+                   b--;
+                   i++;
+               }
+            }
+            return a;
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+53. Count Between Numbers
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program53
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            int l = Convert.ToInt32(Console.ReadLine());
+            int h = Convert.ToInt32(Console.ReadLine());
+            int res = UserProgramCode.countbetweennumbers(n, a, l, h);
+            if (res == -1)
+            {
+                Console.WriteLine("Negative numbers present");
+            }
+            else
+                Console.WriteLine(res);
+            Console.ReadKey();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program53
+{
+    class UserProgramCode
+    {
+        public static int countbetweennumbers(int n, int[] a, int l, int h)
+        {
+            int count=0;
+            for (int i = 0; i < n; i++)
+            {
+                if (a[i]<0 || l < 0 || h < 0)
+                {
+                    return -1;
+                }
+                if (a[i] >= l && a[i] <= h)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------
+54. Concatenate String
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program54
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a = Console.ReadLine();
+            string b = Console.ReadLine();
+            string res = UserProgramCode.concatstring(a, b);
+            Console.WriteLine(res);
+            Console.ReadKey();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program54
+{
+    class UserProgramCode
+    {
+        public static string concatstring(string a, string b)
+        {
+            int x=a.Length;
+            int y=b.Length;
+           // string c;
+            if(x == y)
+            {
+                string s=string.Concat(a,b);
+                return s;
+            }
+            else if (x > y)
+            {
+                int z = x - y;
+                string d = a.Remove(0, z);
+                string e=string.Concat(d,b);
+                return e;
+            }
+            
+            else
+            {
+                int z = y - x;
+                string d = b.Remove(0, z);
+                string e=string.Concat(a,d);
+                return e; 
+            }
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+55. SortList
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program55
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+           // Console.WriteLine(a[0]);
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            
+            
+            int[] res = UserProgramCode.sortList(a);
+            if (res[0] == -1)
+            {
+                Console.WriteLine("Invalid Input");
+            }
+            else if (res[0]== -2)
+            {
+                Console.WriteLine("Input is Empty");
+            }
+            else
+            {
+                foreach(int r in res)
+                Console.WriteLine(r);
+            }
+            Console.ReadKey();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program55
+{
+    class UserProgramCode
+    {
+        public static int[] sortList(int[] a)
+        {
+            int[] b = new int[1];
+           
+           
+                if (a.Length == 0)
+                {
+                    b[0] = -2;
+                    return b;
+                }
+            
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] < 0)
+                {
+                    b[0] = -1;
+                    return b;
+                }
+            }
+            Console.WriteLine("Sorted Array :");
+            Array.Sort(a);
+            return a;
+        }
+    }
+}
+            
+            
+
+-------------------------------------------------------------------------------------------------------------------
+56. Password Validation
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program56
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a = Console.ReadLine();
+            int res = UserProgramCode.passwowdValidate(a);
+            if (res == 1)
+            {
+                Console.WriteLine("Valid Password");
+            }
+            else 
+            {
+                Console.WriteLine("InValid Password");
+            }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program56
+{
+    class UserProgramCode
+    {
+        public static int passwowdValidate(string a)
+        {
+            bool x,y,z;
+            x = a.Contains("@");
+            y = a.Contains("#");
+            z = a.Contains("$");
+            if (x && y && z)
+            {
+                if ((a.Length >= 6) && (a.Length <= 20))
+                {
+                    return 1;
+                }
+            }
+            return -1;
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+57. Longest Word
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program57
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            string c;
+            c = UserProgramCode.getLargestWord(s);
+            Console.WriteLine(c);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program57
+{
+    class UserProgramCode
+    {
+        public static string getLargestWord(string str)
+        {
+            int len = 0, max = 0, index = -1;
+            string[] s = new string[100];
+            s = str.Split(' ');
+            for (int i = 0; i < s.Length; i++)
+            {
+                len = s[i].Length;
+                if (max < len)
+                {
+                    max = len;
+                    index = i;
+                }
+            }
+            return s[index];
+        }
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------
+58. Find the difference between Dates in months
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program58
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int k;
+            string intime, outtime;
+            intime = Console.ReadLine();
+            outtime = Console.ReadLine();
+            k = UserProgramCode.getMonthDifference(intime, outtime);
+            if (k == -1)
+            {
+                Console.WriteLine("Invalid format");
+            }
+            else
+                Console.WriteLine(k);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program58
+{
+    class UserProgramCode
+    {
+        public static int getMonthDifference(string intime, string outtime)
+        {
+            string s;
+            s = "yyyy-MM-dd";
+            DateTime i, o;
+            bool k = DateTime.TryParseExact(intime, s, null, System.Globalization.DateTimeStyles.None, out i);
+            if (k == false)
+                return -1;
+            bool j = DateTime.TryParseExact(outtime, s, null, System.Globalization.DateTimeStyles.None, out o);
+            if (j == false)
+                return -1;
+            int a1 = i.Month;
+            int a2 = o.Month;
+            int d;
+            if (a1 > a2)
+                d = a1 - a2;
+            else
+                d = a2 - a1;
+            return d;
+        }
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------
+59. Generate the series
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program59
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n, x;
+            n = Convert.ToInt32(Console.ReadLine());
+            x = UserProgramCode.addSeries(n);
+            Console.WriteLine(x);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program59
+{
+    class UserProgramCode
+    {
+        public static int addSeries(int a)
+        {
+            int t = 0, k = 1;
+            for (int i = 0; k <= a; i++)
+            {
+                if (i == 0)
+                {
+                    t = t + k;
+                }
+                else if (i == 1)
+                {
+                    t = t + k;
+                }
+                else if (i % 2 != 0)
+                {
+                    t = t + k;
+                }
+                else
+                {
+                    t = t - k;
+                }
+
+                k = k + 2;
+            }
+            return t;
+        }
+    }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------
+60. Three Digits
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace program60
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int x;
+            string s = Console.ReadLine();
+            x = UserProgramCode.validatestrings(s);
+            if (x == 1)
+            {
+                Console.WriteLine("valid");
+            }
+            else
+            {
+                Console.WriteLine("Invalid");
+            }
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace program60
+{
+    class UserProgramCode
+    {
+        public static int validatestrings(string str)
+        {
+            int output1 = 0;
+            Regex reg = new Regex(@"^([C]+[T]+[S]+[-]+([0-9]{3}))$");
+            if (reg.IsMatch(str))
+            {
+
+                output1 = 1;
+            }
+
+            else
+            {
+                output1 = -1;
+            }
+            return output1;
+
+        }
+    }
+}
+-------------------------------------------------------------------------------------------------------------------
+
+
+61. File Extension
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace File_Extension
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            string str = Console.ReadLine();
+            Console.WriteLine(UserProgramCode.fileIdentifier(str));
+            Console.ReadKey();
+
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace File_Extension
+{
+    class UserProgramCode
+    {
+        public static string fileIdentifier(string s)
+        {
+            string[] str;
+            str = s.Split('.');
+            return str[1];
+        }
+
+
+    }
+}
+----------------------------------------------------------------------------------------------------
+62.Number Validation
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _62Number_Validation
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int f = 0;
+            string s;
+            s = Console.ReadLine();
+
+            f=UserProgramCode.validateNumber(s);
+
+            if (f == 1)
+                Console.WriteLine("Valid number format");
+            if (f == -1)
+                Console.WriteLine("Invalid number format");
+            Console.ReadKey();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace _62Number_Validation
+{
+    class UserProgramCode
+    {
+         public static  int validateNumber(string s)
+    {
+        if (Regex.IsMatch(s, @"^\d{3}[-]\d{3}[-]\d{4}$"))
+        {
+            return 1;
+        }
+        else
+            return -1;
+    }
+}
+    }
+
+-----------------------------------------------------------------------------------------------------------
+63.Sum of cubes and squares of elements in an array
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _63Sum_of_cubes_and_squares_of_elements_in_an_array
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = Convert.ToInt32(Console.ReadLine());
+            }
+                int sum = UserProgramCode.addEvenOdd(a);
+                Console.WriteLine(sum);
+            
+            Console.ReadKey();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _63Sum_of_cubes_and_squares_of_elements_in_an_array
+{
+    class UserProgramCode
+    {
+        public static int addEvenOdd(int[] a)
+        {
+            int sum = 0;
+            foreach (int i in a)
+            {
+                if (i % 2 == 0)
+                {
+                    sum = sum + (i * i);
+                }
+                else
+                {
+                    sum = sum + (i*i*i);
+                }
+            }
+            return sum;
+        }
+    
+             
+
+    }
+}
+---------------------------------------------------------------------------------------
+64.Initial Format
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Initial_Format
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            string str = Console.ReadLine();
+            Console.WriteLine(UserProgramCode.nameFormatter (str));
+            Console.ReadKey();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Initial_Format
+{
+    class UserProgramCode
+    {
+        public static string nameFormatter(string s)
+        {
+
+            string[] str;
+            str = s.Split(' ');
+            s = str[1] + ", " + str[0][0];
+            return s;
+        }
+    }
+}
+------------------------------------------------------------------------------------------
+
+65.difference between date
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _65difference_between_date
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s1 = Console.ReadLine();
+            string s2 = Console.ReadLine();
+            int difference = UserProgramCode.getDateDifference(s1, s2);
+            Console.WriteLine(difference);
+            Console.ReadKey();               
+
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+
+namespace _65difference_between_date
+{
+    class UserProgramCode
+    {
+        public static int getDateDifference(string s1, string s2)
+        {
+            string fm = "yyyy-MM-dd";
+            DateTime dt, dt1;
+           
+            DateTime.TryParseExact(s1, fm, null, System.Globalization.DateTimeStyles.None, out dt);
+            DateTime.TryParseExact(s2, fm, null, System.Globalization.DateTimeStyles.None, out dt1);
+          
+                int output=Convert.ToInt32(dt1.Subtract(dt).Days);
+                return output;
+
+
+        }
+
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------
+66.Count Sequential Characters
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _66.Count_Sequential_Characters
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            int a = UserProgramCode.countSequentialChars(s);
+            if (a == -1)
+                Console.WriteLine("No Repeated Words Found");
+            else
+                Console.WriteLine(a);
+            Console.ReadKey();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _66.Count_Sequential_Characters
+{
+    class UserProgramCode
+    {
+        public static int countSequentialChars(string s)
+        {
+            int l = s.Length;
+            string[] st = new string[50];
+
+            for (int k = 0; k < l; k++)
+            {
+                st[k] = s.Substring(k, 1);
+
+
+            }
+
+            int count = 0;
+            int flag = 0;
+
+            for (int k = 0; k < l - 1; k++)
+            {
+
+                if (st[k] == st[k + 1])
+                    count++;
+                else
+                    count = 0;
+                if (count == 2)
+                    flag++;
+
+
+            }
+
+
+            if (flag == 0)
+                return -1;
+            else
+                return flag;
+        }
+ 
+    }
+}
+--------------------------------------------------------------------------------------------------
+67.Boundary Average
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _67.Boundary_Average
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] array = new int[n];
+            for (int i = 0; i < n; i++)
+                array[i] = Convert.ToInt32(Console.ReadLine());
+            double a = UserProgramCode.getBoundaryAverage(array);
+            Console.WriteLine(a);
+            Console.ReadLine();
+          
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _67.Boundary_Average
+{
+    class UserProgramCode
+    {
+
+        public static double getBoundaryAverage(int[] array)
+        {
+
+            double d, c;
+            d = ((array.Max() + array.Min()) / 2.0);
+            c = Math.Round(d, 1);
+
+            return c;
+        }
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------
+68.String Reversal
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _68.reversee
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+
+            string a = UserProgramCode.reverseString(s);
+            if (a == "-1")
+                Console.WriteLine("Invalid Input");
+            else
+                Console.WriteLine(a);
+            Console.ReadKey();
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _68.reversee
+{
+    class UserProgramCode
+    {
+        public static string reverseString(string s)
+        {
+            string[] str = s.Split(' ');
+            foreach (string a in str)
+            {
+                char[] c = a.ToCharArray();
+                foreach (char t in c)
+                {
+                    if ((!char.IsDigit(t)) && (!char.IsLetter(t)))
+                    {
+                        return "-1";
+                    }
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            foreach (string t in str)
+            {
+
+                char[] u = t.ToCharArray();
+                Array.Reverse(u);
+                foreach (char r in u)
+                {
+                    sb.Append(r);
+                }
+                sb.Append(' ');
+            }
+            return sb.ToString();
+        }
+
+    }
+}
+---------------------------------------------------------------------------------------------------
+69.Find Occurence
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _69.Find_Occurence
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            string s = Console.ReadLine();
+            char c = Convert.ToChar(Console.ReadLine());
+
+            int a = UserProgramCode.findOccurence(s, c);
+            if (a == -1)
+                Console.WriteLine("Invalid Input");
+            else
+                Console.WriteLine(a);
+            Console.ReadKey();
+ 
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _69.Find_Occurence
+{
+    class UserProgramCode
+    {
+        public static int findOccurence(string s1,char s2)
+        {
+            char[] c= s1.ToCharArray();
+            int count=0;
+            foreach ( char w in c)
+            {
+                if((!char.IsLetter(w))&& (!char.IsWhiteSpace(w)))
+                {
+                    return -1;
+                }
+                else
+                {
+                      if(w==char.ToLower(s2)||w==char.ToUpper(s2))
+                        count++;
+                }
+
+                 
+            }
+            return count;
+                
+            }                           
+             
+
+    }
+}
+----------------------------------------------------------------------------------------------------------
+70.Calculate Commission
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _70.Calculate_Commission
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            float input = float.Parse(Console.ReadLine());
+
+            int a = UserProgramCode.calculateCommission(input);
+            if (a == -1)
+                Console.WriteLine("Invalid Input");
+            else
+                Console.WriteLine(a);
+            Console.ReadKey();
+
+
+        }
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _70.Calculate_Commission
+{
+    class UserProgramCode
+    {
+        public static int calculateCommission(float a)
+        {
+            double com=0;
+            double r = Convert.ToDouble(a);
+
+            if (r < 0)
+            {
+                return -1;
+            }
+            else if (r < 10000)
+            {
+                return 0;
+            }
+            else if (r >= 10000 && r <= 25000)
+            {
+                com = r * 10.0 / 100.0;
+               
+            }
+
+            else if (r > 25000)
+            {
+                com = 500 + (r * 8.0 / 100.0);
+               
+            }
+            return Convert.ToInt32(com);
+        }
+  
+    }
+}
+-------------------------------------------------------------------------------------------
+
+71.sort array element
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _71Sort_Array_Element
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+
+            int n = Convert.ToInt32(Console.ReadLine());
+            string[] a = new string[n];
+            string[] b;
+            for (int i = 0; i < a.Length; i++)
+                a[i] = Console.ReadLine();
+            b = UserProgramCode.sortArrayElement(a);
+            foreach (string c in b)
+                Console.WriteLine(c);
+            Console.ReadLine();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _71Sort_Array_Element
+{
+    class UserProgramCode
+    {
+        public static string[] sortArrayElement(string[] a)
+        {
+            string[] b = new string[1];
+            for (int i = 0; i < a.Length; i++)
+            {
+                for (int j = 0; j < a[i].Length; j++)
+                {
+                    if (!char.IsLetterOrDigit(a[i][j]))
+                    {
+                        b[0] = "-1";
+                        return b;
+                    }
+                }
+            }
+            Array.Sort(a, StringComparer.Ordinal);
+            return a;
+        }
+    }
+}
+
+
+
+72.shortest word length
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _72.Shortest_Word_Length
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string[] a = new string[n];
+            for (int i = 0; i < a.Length; i++)
+                a[i] = Console.ReadLine();
+            int r = UserProgramCode.shortestWordLength(a);
+            Console.WriteLine(r);
+            Console.ReadLine();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _72.Shortest_Word_Length
+{
+    class UserProgramCode
+    {
+
+        public static int shortestWordLength(string[] input)
+        {
+            int min = input[0].Length;
+            for (int i = 0; i < input.Length; i++)
+            {
+               
+                
+                    if (min > input[i].Length)
+                        min = input[i].Length;
+                
+            }
+            return min;
+        }
+    }
+}
+
+
+73.shipping cost
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _73.Shipping_Cost
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            float f = float.Parse(Console.ReadLine());
+            char c = Convert.ToChar(Console.ReadLine());
+            float p = UserProgramCode.CalcShippingCost(f, c);
+            Console.WriteLine(p.ToString("F"));
+            Console.ReadLine();
+            
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _73.Shipping_Cost
+{
+    class UserProgramCode
+    {
+       public static float CalcShippingCost(float input1, char input2)
+        {
+            float temp;
+            if (input2 == 'R')
+            {
+                if (input1 <= 2000)
+                    return (float)(input1 * 0.25);
+                else
+                {
+                    temp = (float)(2000 * 0.25);
+                    return (float)(temp + ((input1 - 2000) * 0.35));
+
+                }
+            } 
+ 
+           else if (input2 == 'X')
+            {
+                if (input1 <= 2000)
+                    return (float)(input1 * 0.25)+50;
+                else
+                {
+                    temp = (float)(2000 * 0.25);
+                    return (float)(temp + ((input1 - 2000) * 0.35) + 50);
+                }
+            }
+            else
+            return 0;
+        } 
+    }
+ }
+
+
+
+74.strong number
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _74.Strong_Number
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int n = Convert.ToInt32(Console.ReadLine());
+            string r = UserProgramCode.checkStrongNumber(n);
+            Console.WriteLine(r);
+            Console.ReadLine();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _74.Strong_Number
+{
+    class UserProgramCode
+    {
+        public static String checkStrongNumber(int input1)
+        {
+            if (input1 < 0)
+                return "Invalid Input";
+            int t, r, f = 0;
+            t = input1;
+            while (t > 0)
+            {
+                int fact = 1;
+                r = t % 10;
+                for (int j = 1; j <= r; j++)
+                {
+                    fact *= j;
+                }
+                f += fact;
+                t /= 10;
+            }
+            if (f == input1)
+                return f + " is a Strong Number";
+            else
+                return "Sum of all digits factorial is " + f;
+        }
+
+    }
+}
+
+
+75.printdigitsum
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _75.Print_Digit_Sum
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string s = Console.ReadLine();
+            int i = UserProgramCode.getdigits(s);
+            Console.WriteLine(i);
+            Console.ReadLine();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _75.Print_Digit_Sum
+{
+    class UserProgramCode
+    {
+
+        public static int getdigits(string input1)
+        {
+            int s = 0;
+            for (int j = 0; j < input1.Length; j++)
+            {
+                if ((char.IsLetterOrDigit(input1[j])))
+                {
+                    if (char.IsDigit(input1[j]))
+                    {
+                        int x = Convert.ToInt32(input1[j].ToString());
+                        s = s + x;
+                    }
+                }
+                else
+                    return -1;
+            }
+            if (s == 0)
+                return -2;
+            else
+                return s;
+        }
+    }
+}
+
+
+76  special characters
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _76.Special_Characters
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+              
+            String str = Console.ReadLine();
+            String res = UserProgramCode.getSpecialChar(str);
+            Console.WriteLine(res);
+            Console.ReadKey();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _76.Special_Characters
+{
+    class UserProgramCode
+    {
+        public static string getSpecialChar(string input1)
+        {
+            int num = 0;
+            StringBuilder sb = new StringBuilder();
+            int sp = 0;
+           
+            char[] c1 = input1.ToCharArray();
+            
+          foreach (char c in c1)
+                {
+
+                    if (char.IsDigit(c))
+                    {
+                        num++;
+                        sb.Append(c);
+                    }
+                    if (c == '#' || c == '$' || c == '%' || c == '&')
+                    {
+                        sp++;
+                        sb.Append(c);
+                    }
+
+                }
+            
+            if (num == 0 || sp == 0)
+            {
+                return "-1";
+            }
+            else
+                return sb.ToString();
+        }
+    }
+}
+
+
+
+77.calculate frequency
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _77.Calculate_Frequency
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            String input1 = Console.ReadLine();
+            String input2 = Console.ReadLine();
+            int ret = UserProgramCode.calcFrequency(input1, input2);
+            Console.WriteLine(ret);
+            Console.ReadKey();
+          
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _77.Calculate_Frequency
+{
+    class UserProgramCode
+    {
+
+        public static int calcFrequency(string input1, string input2)
+        {
+            StringBuilder sb = new StringBuilder();
+            int val = 0;
+            String[] arr = input1.Split(' ');
+            foreach (String a in arr)
+            {
+                sb.Append(a.ToLower());
+            }
+            int len = arr.Length;
+            for (int i = 0; i < len; i++)
+            {
+                String s = arr[i];
+                for (int j = i + 1; j < len; j++)
+                {
+                    if (s.Equals(arr[j]))
+                    {
+                        val++;
+                        return -1;
+                    }
+                }
+            }
+            if (val == 0)
+            {
+                int count = 0;
+
+                StringBuilder sb1 = new StringBuilder();
+                String linput1 = input1.ToLower();
+                String linput2 = input2.ToLower().Replace('.', ' ');
+            
+                String[] l = linput2.Split(' ');
+                foreach (String a in l)
+                {
+                    sb1.Append(a);
+                }
+                len = sb.Length;
+                int len2 = sb1.Length;
+              
+                for (int i = 0; i < len2; i++)
+                {
+                    if (i < len2 - len)
+                    {
+                      
+                        String sub = sb1.ToString().Substring(i, len);
+                        if (sub.Equals(sb.ToString()))
+                        {
+                            count++;
+                        }
+                    }
+
+                }
+                if (count == 0)
+                    return -2;
+                else
+                    return count;
+            }
+            return 0;
+        }
+    }
+}
+
+
+
+78.form string
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _78.Form_String
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int k, n;
+            k = int.Parse(Console.ReadLine());
+            String[] arr = new String[k];
+            for (int i = 0; i < k; i++)
+            {
+                arr[i] = Console.ReadLine();
+            }
+            n = int.Parse(Console.ReadLine());
+            String ret = UserProgramCode.formString(arr, n);
+            Console.WriteLine(ret);
+            Console.ReadKey();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _78.Form_String
+{
+    class UserProgramCode
+    {
+
+        public static string formString(string[] input1, int input2)
+        {
+            int len;
+            StringBuilder sb = new StringBuilder();
+            foreach (String a in input1)
+            {
+                if (a.Contains('#') || a.Contains('&') || a.Contains('%') || a.Contains('$'))
+                    return "-1";
+                else
+                {
+                    len = a.Length;
+                  
+                    if (input2 > len)
+                        sb.Append('$');
+                    else
+                    {
+                        String c = a.Substring(input2 - 1, 1);
+                      
+                        sb.Append(c);
+                    }
+                }
+            }
+            return sb.ToString();
+        }
+    }
+}
+
+
+79.word form
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _79.Word_Form
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int num;
+            num = int.Parse(Console.ReadLine());
+            String ret = UserProgramCode.wordForm(num);
+            Console.WriteLine(ret);
+            Console.ReadKey();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _79.Word_Form
+{
+    class UserProgramCode
+    {
+
+        public static string wordForm(int n)
+        {
+            return _toText(n, true);
+        }
+        private static string _toText(long n, bool isFirst = false)
+        {
+            string result;
+            if (isFirst && n == 0)
+            {
+                result = "Zero";
+            }
+            else if (n < 0)
+            {
+                result = "minus " + _toText(-n);
+            }
+            else if (n == 0)
+            {
+                result = "";
+            }
+            else if (n <= 9)
+            {
+                result = new[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" }[n - 1] + " ";
+            }
+            else if (n <= 19)
+            {
+                result = new[] { "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" }[n - 10] + (isFirst ? null : " ");
+            }
+            else if (n <= 99)
+            {
+                result = new[] { "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" }[n / 10 - 2] + (n % 10 > 0 ? "-" + _toText(n % 10) : null);
+            }
+            else if (n <= 999)
+            {
+                result = _toText(n / 100) + "Hundred " + _toText(n % 100);
+            }
+            else if (n <= 999999)
+            {
+                result = _toText(n / 1000) + "Thousand " + _toText(n % 1000);
+            }
+            else if (n <= 999999999)
+            {
+                result = _toText(n / 1000000) + "Million " + _toText(n % 1000000);
+            }
+            else
+            {
+                result = _toText(n / 1000000000) + "Billion " + _toText(n % 1000000000);
+            }
+            if (isFirst)
+            {
+                result = result.Trim();
+            }
+            return result;
+        }
+    }
+}
+
+
+80.repeat characters
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _80.Repeat_Characters
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            String val = Console.ReadLine();
+            int num = int.Parse(Console.ReadLine());
+            String ret = UserProgramCode.repeatManipulateString(val, num);
+            Console.WriteLine(ret);
+            Console.ReadKey();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _80.Repeat_Characters
+{
+    class UserProgramCode
+    {
+
+        public static string repeatManipulateString(string input1, int input2)
+        {
+            StringBuilder sb = new StringBuilder();
+            int len = input1.Length;
+            if (len < 3)
+                return "Input value is insufficient";
+            if (input2 < 0)
+                return "Invalid Input";
+            if (len <= 5)
+            {
+                for (int i = 0; i < input2; i++)
+                {
+                    sb.Append(input1.Substring(0, 3));
+                }
+                return sb.ToString();
+            }
+            else if (len > 10)
+            {
+                return "Input value is too long";
+            }
+            else if (len > 5)
+            {
+                for (int i = 0; i < input2; i++)
+                {
+                    sb.Append(input1.Substring(len - 3, 3));
+                }
+                return sb.ToString();
+            }
+            return " ";
+        }
+    }
+}
+
+
+
+
+
+
+81.a  getsttring string processing 1
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _81_getString
+{
+    class userprogramcode
+    {
+        public static string getstring(string input1, int input2)
+        {
+            
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(input1);
+            int length = input1.Length;
+           string s= input1.Substring(length - input2, input2);
+           for (int i = 0; i < input2; i++)
+           {
+               sb.Append(s);
+           }
+           return sb.ToString();
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input1 = Console.ReadLine();
+            int flag=0;
+            int fg=0;
+            int input2 = Convert.ToInt32(Console.ReadLine());
+            char[] c = new char[input1.Length];
+            c = input1.ToCharArray();
+            foreach (char ch in c)
+            {
+                if (char.IsDigit(ch))
+                {
+                    flag = 1;
+                    break;
+                }
+                else if(!char.IsLetter(ch))
+                {
+                    fg = 1;
+                    break;
+                }
+            }
+            if (flag == 1)
+            {
+                Console.WriteLine("-1");
+            }
+            else if (fg == 1)
+            {
+                Console.WriteLine("-2");
+            }
+
+            else if (input1.Length < input2)
+            {
+                Console.WriteLine("-3");
+            }
+            else
+            {
+                string output = userprogramcode.getstring(input1, input2);
+                Console.WriteLine(output);
+            }
+            Console.ReadKey();
+
+        }
+    }
+}
+-------------------------------------------------------------
+81 b         form new words   string processing 2
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _81_b_form_new_words
+{
+    class userprogramcode
+    {
+        public static string form(string ip1)
+        {
+
+            {
+                string[] s = new string[ip1.Length];
+                char[] s1 = new char[ip1.Length];
+                string final = "";
+                s = ip1.Split(' ');
+                int i = 0;
+                if (s.Length == 1)
+                    return "-3";
+                foreach (string x in s)
+                {
+                    s1[i] = x.ElementAt(x.Length - 1);
+
+                    if (char.IsNumber(s1[i]))
+                        return "-1";
+                    else if (!char.IsLetter(s1[i]))
+                        return "-2";
+
+                    i++;
+
+
+                }
+                int j = 0;
+                while (i > 0)
+                {
+
+
+                    final = final + char.ToUpper(s1[j]) + "$";
+                    j++;
+                    i--;
+                }
+                final = final.Remove(final.Length - 1);
+                return final;
+
+
+            }
+        }
+
+
+        class Program
+        {
+
+            static void Main(string[] args)
+            {
+                string input1 = Console.ReadLine();
+                string output = userprogramcode.form(input1);
+                Console.WriteLine(output);
+                Console.ReadKey();
+
+            }
+        }
+    }
+}
+--------------------------------------------------------------------
+82  gyrating
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _82_gyrating
+{
+    class UserProgramCode
+    {
+        public static int check(int[] a, int len)
+        {
+            int r, cmax = 0, cmin = 0, count = 0, i = 0, rem = 0, j = 0;
+            StringBuilder sb = new StringBuilder();
+            foreach (int val in a)
+            {
+                i = 0; cmax = 0; cmin = 0;
+                int v = val;
+                if (val < 0)
+                    return -2;
+                else
+                {
+                    while (v > 0)
+                    {
+                        ++j;
+                        r = v % 10;
+                        if (i == 0)
+                        {
+                            rem = r;
+                            ++i;
+                        }
+                        if (r == rem)
+                        {
+                            ++cmin;
+                            ++cmax;
+                        }
+                        else if (r < rem)
+                        {
+                            ++cmin;
+                            rem = r;
+                        }
+                        else if (r > rem)
+                        {
+                            ++cmax;
+                            rem = r;
+                        }
+                        v = v / 10;
+                    }
+                    if (cmin == 1)
+                        sb.Append("m");
+                    if (cmax == 1)
+                        sb.Append("M");
+                    if (cmin == 1 || cmax == 1)
+                    {
+                        ++count;
+                    }
+                    else
+                        return -1;
+                }
+
+            }
+            if (count == len)
+            {
+                //Console.WriteLine("true");
+                int counter = 0;
+                char odd = sb[1];
+                char even = sb[0];
+                if (!odd.Equals(even))
+                {
+                    for (int ii = 0; ii < sb.Length; ii++)
+                    {
+                        if (ii % 2 == 0)
+                        {
+                            //Console.WriteLine("inside even pos");
+                            if (sb[ii].Equals(even))
+                                counter++;
+                            else
+                                return -1;
+
+                        }
+                        else
+                        {
+                            //Console.WriteLine("inside odd pos");
+                            if (sb[ii].Equals(odd))
+                                counter++;
+                            else
+                                return -1;
+                        }
+
+
+                    }
+                    if (counter == count)
+                        return 1;
+
+                }
+                else
+                    return -1;
+            }
+            return 0;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+             a[i]= Convert.ToInt32(Console.ReadLine());
+            }
+            int output = UserProgramCode.check(a,n);
+            Console.WriteLine(output);
+            Console.ReadKey();
+
+        }
+    }
+}
+-------------------------------------------------------------------
+
+83 arraysorting
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace _83_array_sorting
+{
+    class UserProgramCode
+    {
+        public static string[] orderStringElements(string[] ar)
+        {
+            int len = ar[0].Length;
+            String pat = @"^[a-zA-Z]{" + len + "}$";           
+            Regex reg1 = new Regex(pat);
+            String[] res = new String[1];
+            StringBuilder sb = new StringBuilder();
+            int n = ar.Length;
+            foreach (String aa in ar)
+            {
+                if (!reg1.IsMatch(aa))
+                {
+                    res[0] = "Invalid String";
+                    return res;
+                }
+
+            }
+            for (int i = 0; i < n; i++)
+            {
+                String a = ar[i];
+
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (a.Equals(ar[j]) && !a.Equals(""))
+                    {
+                        ar[j] = "-1";
+                    }
+                }
+                if (!a.Equals("-1"))
+                {
+                    if (i > 0)
+                        sb.AppendLine();
+                    sb.Append(a);
+                }
+            }
+            String[] array = sb.ToString().Split('\n');
+
+            Array.Sort(array, StringComparer.Ordinal);
+            return array;
+
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            String[] ar = new String[n];
+            for (int i = 0; i < n; i++)
+            {
+                ar[i] = Console.ReadLine();
+            }
+            String[] ret = UserProgramCode.orderStringElements(ar);
+            foreach (String a in ret)
+            {
+                Console.WriteLine(a);
+            }
+            Console.ReadKey();
+        }
+    }
+}
+-------------------------------------------------------------------
+
+84. interchange characs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _84_interchange_characs
+{
+    class userprogramcode
+    {
+        public static string interchange(string input)
+        {
+            char[] c = new char[input.Length];
+            c = input.ToCharArray();
+            foreach (char ch in c)
+            {
+                if (char.IsDigit(ch) || !char.IsLetterOrDigit(ch))
+                {
+                    return "Invalid STring";
+                }
+
+            }
+
+            if (char.IsLower(c[0]) || char.IsUpper(c[0]) || char.IsLower(c[input.Length-1]) || char.IsUpper(c[input.Length-1]))
+            {
+                if (c[0].Equals(c[input.Length - 1]))
+                {
+                    return "NO CHANGE";
+                }
+            }
+           
+            
+            char temp;
+            for(int i=0;i<input.Length;i++)
+            {
+                    if(char.IsLower(c[i])||char.IsUpper(c[i]))
+                    {
+                     temp=c[0];
+                     c[0]=c[input.Length-1];
+                     c[input.Length-1]=temp;
+                    }
+            }
+            string output = new string(c);
+            return output;
+        
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            string output = userprogramcode.interchange(input);
+            Console.WriteLine(output);
+            Console.ReadLine();
+        }
+    }
+}
+--------------------------------------------------------------------------
+
+85 maxmin
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _85maxmin
+{
+    class userprogramcode
+    {
+        public static int maxmin(int a, int b, int c)
+        {
+            int sum = 0;
+            int[] t = new int[3];
+            t[0] = a;
+            t[1] = b;
+            t[2] = c;
+            sum = t.Max() + t.Min();
+            return sum;
+
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = Convert.ToInt32(Console.ReadLine());
+            int b = Convert.ToInt32(Console.ReadLine());
+            int c = Convert.ToInt32(Console.ReadLine());
+            if (a < 0 || b < 0 || c < 0)
+            {
+                Console.WriteLine("-1");
+            }
+            else if (a == b || b == c || a == c)
+            {
+                Console.WriteLine("-2");
+            }
+            else
+            {
+                int sum = userprogramcode.maxmin(a, b, c);
+                Console.WriteLine(sum);
+            }
+            Console.ReadLine();
+        }
+    }
+}
+
+-------------------------------------------------------------------------------
+
+86.  emp desig
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace _86_employee_desig
+{
+    public class UserMainCode
+    {
+        public static int j;
+
+        public static string[] getEmployee(string[] input1, string input2)
+        {
+
+
+
+            int n = input1.Length;
+            j = 0;
+            String[] temp = new String[n];
+
+            for (int i = 0; i < n; i = i + 2)
+            {
+                if (input1[i + 1].Equals(input2))
+                {
+                    temp[j] = input1[i];
+                    j++;
+                }
+            }
+            return temp;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            Regex reg = new Regex(@"([A-Za-z])$");
+            n = int.Parse(Console.ReadLine());
+            String[] input1 = new String[n];
+            String input2;
+            String[] output;
+            for (int i = 0; i < n; i++)
+            {
+                input1[i] = Console.ReadLine();
+                if (!reg.IsMatch(input1[i]))
+                {
+                    Console.WriteLine("Invalid Input"); return;
+                }
+
+
+
+            }
+            input2 = Console.ReadLine();
+
+            if (reg.IsMatch(input2))
+            {
+                output = UserMainCode.getEmployee(input1, input2);
+                if (UserMainCode.j == 0)
+                    Console.WriteLine("No Empployee for " + input2 + " designation");
+                else if (UserMainCode.j == n / 2)
+                {
+                    Console.WriteLine("All employees belong to same " + input2 + " designation");
+                }
+                else
+                {
+                    foreach (var item in output)
+                    {
+                        Console.WriteLine(item);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input");
+            }
+            Console.ReadLine();
+        }
+    }
+}
+---------------------------------------------------------------
+
+
+87  donations
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace _87_donations
+{
+    public class UserMainCode
+    {
+        public static int getDonation(string[] input1, int input2)
+        {
+            String temp;
+            int n = input1.Length;
+            int output = 0, sum; 
+            for (int i = 0; i < n; i++)
+            {
+                temp = input1[i].Substring(3, 3);
+                if (int.Parse(temp) == input2)
+                {
+                   sum = int.Parse(input1[i].Substring(6, 3));
+                    output += sum;
+                }
+            }
+            return output;
+        }
+    }
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                int n = Convert.ToInt32(Console.ReadLine());
+                string[] input1 = new string[n];
+                Regex reg = new Regex(@"([A-Za-z0-9])$");
+                int input2;
+                int output;
+                for (int i = 0; i < n; i++)
+                {
+                    input1[i] = Console.ReadLine();
+                    if (!reg.IsMatch(input1[i]))
+                    {
+                        Console.WriteLine("-2");
+                        return;
+                    }
+
+
+
+                }
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = i + 1; j < n; j++)
+                    {
+                        if (input1[i].Equals(input1[j]))
+                        { Console.WriteLine("-1"); }
+                    }
+                }
+                input2 = int.Parse(Console.ReadLine());
+
+                output = UserMainCode.getDonation(input1, input2);
+                Console.WriteLine(output);
+                Console.ReadLine();
+
+            }
+        }
+    }
+
+------------------------------------------------------------------
+
+88  online sales
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _88_online_sales
+{
+    public class UserMainCode
+    {
+        public static void onlineSalesAmount(int input1, int input2)
+        {
+               
+            if (input1 > 0)
+            {
+                if (input2 > 1000 && input2 <= 1100)
+                {
+                    Console.WriteLine("The actual price of the product is Rs " + input1 + " and you have bought it for Rs " + (input1 - (input1 * 0.5)) + ". You Save Rs " + (input1 * 0.5) + ".");
+                }
+                else if (input2 > 1100 && input2 <= 1200)
+                {
+                    Console.WriteLine("The actual price of the product is Rs " + input1 + " and you have bought it for Rs " + (input1 - (input1 * 0.4)) + ". You Save Rs " + (input1 * 0.4) + ".");
+                }
+                else if (input2 > 1200 && input2 <= 1600)
+                {
+                    Console.WriteLine("The actual price of the product is Rs " + input1 + " and you have bought it for Rs " + (input1 - (input1 * 0.3)) + ". You Save Rs " + (input1 * 0.3) + ".");
+                }
+                else if (input2 > 1600 && input2 <= 1800)
+                {
+                    Console.WriteLine("The actual price of the product is Rs " + input1 + " and you have bought it for Rs " + (input1 - (input1 * 0.25)) + ". You Save Rs " + (input1 * 0.25) + ".");
+                }
+                else
+                    Console.WriteLine("The price of the product is Rs " + input1 + " and discounts are not applicable.");
+            }
+            else
+                Console.WriteLine("Invalid Amount");
+
+
+
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int input1;
+            int input2;
+
+            input1 = int.Parse(Console.ReadLine());
+            input2 = int.Parse(Console.ReadLine());
+            UserMainCode.onlineSalesAmount(input1, input2);
+            Console.ReadLine();
+        }
+    }
+}
+-----------------------------------------------------------
+
+89 postal tariff
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _89_postal_tariff
+{
+    public class UserMainCode
+    {
+
+
+
+
+
+        public static void getPostalTariff(string[] input1)
+        {
+            int length = input1.Length;
+            double amount = 0;
+            for (int i = 0; i < length; i++)
+            {
+
+
+
+                if (input1[i].Substring(2, 2) == "SP")
+                {
+                    if (input1[i].Substring(0, 2) == "BP")
+                        amount += (100 * 1.3);
+                    else if (input1[i].Substring(0, 2) == "CH")
+                        amount += (450 * 1.3);
+                    else if (input1[i].Substring(0, 2) == "OS")
+                        amount += (200 * 1.3);
+                    else
+                    { 
+                        Console.WriteLine("Invalid location Code"); 
+                        return; 
+                    }
+                }
+                else if (input1[i].Substring(2, 2) == "NP")
+                {
+                    if (input1[i].Substring(0, 2) == "BP")
+                        amount += (100);
+                    else if (input1[i].Substring(0, 2) == "CH")
+                        amount += (450);
+                    else if (input1[i].Substring(0, 2) == "OS")
+                        amount += (200);
+                    else
+                    { Console.WriteLine("Invalid location Code"); return; }
+                }
+                else
+                { Console.WriteLine("Invalid Postal Delivery"); return; }
+            }
+            Console.WriteLine("Jack spends Rs " + amount + " to send the greetings");
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            n = int.Parse(Console.ReadLine());
+            String[] input1 = new String[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                input1[i] = Console.ReadLine();
+            }
+            UserMainCode.getPostalTariff(input1);
+            Console.ReadLine();              
+              
+        }
+    }
+}
+---------------------------------------------------------------------
+90.  travel agency
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace _90_TRAVEL_agency
+{
+    public class UserMainCode
+    {
+
+
+
+
+
+        public static int getTariffAmount(string[] input1)
+        {
+            int length = input1.Length;
+            double amount = 0;
+            for (int i = 0; i < length; i++)
+            {
+                if (input1[i][2] == 'N')
+                {
+                    if (input1[i][0] == 'A')
+                    {
+                        if (input1[i][1] == 'B')
+                            amount += 10;
+                        else if (input1[i][1] == 'C')
+                            amount += 30;
+                        else if (input1[i][1] == 'D')
+                            amount += 70;
+                    }
+                    else if (input1[i][0] == 'B')
+                    {
+                        if (input1[i][1] == 'A')
+                            amount += 10;
+                        else if (input1[i][1] == 'C')
+                            amount += 20;
+                        else if (input1[i][1] == 'D')
+                            amount += 60;
+                        else
+                        {
+                            Console.WriteLine("Invalid Location"); return -1;
+                        }
+                    }
+                    else if (input1[i][0] == 'C')
+                    {
+                        if (input1[i][1] == 'A')
+                            amount += 30;
+                        else if (input1[i][1] == 'B')
+                            amount += 20;
+                        else if (input1[i][1] == 'D')
+                            amount += 40;
+                        else
+                        {
+                            Console.WriteLine("Invalid Location"); return -1;
+                        }
+                    }
+                    else if (input1[i][0] == 'D')
+                    {
+                        if (input1[i][1] == 'A')
+                            amount += 70;
+                        else if (input1[i][1] == 'B')
+                            amount += 60;
+                        else if (input1[i][1] == 'C')
+                            amount += 40;
+                        else
+                        {
+                            Console.WriteLine("Invalid Location"); return -1;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Location"); return -1;
+                    }
+                }
+                else if (input1[i][2] == 'U')
+                {
+                    if (input1[i][0] == 'A')
+                    {
+                        if (input1[i][1] == 'B')
+                            amount += 10 * 1.2;
+                        else if (input1[i][1] == 'C')
+                            amount += 30 * 1.2;
+                        else if (input1[i][1] == 'C')
+                            amount += 70 * 1.2;
+                    }
+                    else if (input1[i][0] == 'B')
+                    {
+                        if (input1[i][1] == 'A')
+                            amount += 10 * 1.2;
+                        else if (input1[i][1] == 'C')
+                            amount += 20 * 1.2;
+                        else if (input1[i][1] == 'D')
+                            amount += 60 * 1.2;
+                        else
+                        {
+                            Console.WriteLine("Invalid Location"); return -1;
+                        }
+                    }
+                    else if (input1[i][0] == 'C')
+                    {
+                        if (input1[i][1] == 'A')
+                            amount += 30 * 1.2;
+                        else if (input1[i][1] == 'B')
+                            amount += 20 * 1.2;
+                        else if (input1[i][1] == 'D')
+                            amount += 40 * 1.2;
+                        else
+                        {
+                            Console.WriteLine("Invalid Location"); return -1;
+                        }
+                    }
+                    else if (input1[i][0] == 'D')
+                    {
+                        if (input1[i][1] == 'A')
+                            amount += 70 * 1.2;
+                        else if (input1[i][1] == 'B')
+                            amount += 60 * 1.2;
+                        else if (input1[i][1] == 'C')
+                            amount += 40 * 1.2;
+                        else
+                        {
+                            Console.WriteLine("Invalid Location"); return -1;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Location"); return -1;
+                    }
+
+
+
+                }
+                else
+                { Console.WriteLine("Invalid Time of Travel"); return -2; }
+            }
+            return (int)amount;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n, amount;
+            n = int.Parse(Console.ReadLine());
+            String[] input1 = new String[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                input1[i] = Console.ReadLine();
+            }
+            amount = UserMainCode.getTariffAmount(input1);
+            if (amount != -1 && amount != -2)
+                Console.WriteLine("The car has taken " + n + " trips and has collected total amount of " + amount + " rupees");
+            Console.ReadLine();
+         
+          
+        }
+    }
+}
+
+
+
+91.Longest Palindrome
+class Program
+    {
+        static void Main(string[] args)
+        {
+            string a;
+            a = Console.ReadLine();
+            int flag;
+            flag = UserProgramCode.longestPalindrome(a);
+            Console.WriteLine(flag);
+            Console.ReadKey();
+        }
+    }
+}
+class UserProgramCode
+    {
+
+        public static int longestPalindrome(string s1)
+        {
+            char[] chararray = s1.ToCharArray();
+            for (int i = 0; i < chararray.Length; i++)
+            {   if (char.IsDigit(chararray[i]))
+                    {
+                        return -1;
+                    }
+             }
+            
+            for (int i = 0; i < chararray.Length; i++)
+            {     if (!char.IsLetter(chararray[i]))
+                    {
+                        return -2;
+                    }
+             }
+            List<string> final = new List<string>();
+            for (int i = 0; i < chararray.Length; i++)
+            {
+                    char[] soure = s1.Substring(i).ToCharArray();
+                    string source1 = new string(soure);
+                    char[] rev = soure.Reverse().ToArray();
+                    string reverse = new string(rev);
+                    
+                    if (string.Compare(source1,reverse) == 0)
+                    
+                    {
+                        final.Add(source1);
+                    }
+		    else
+			return -3;
+            }
+                
+            //foreach (string s in final)
+            //{
+            //    Console.WriteLine(s);
+            //}
+            int max = final[0].Length;
+
+            foreach (string s in final)
+            {
+                if (s.Length > max)
+                {
+                    max = s.Length;
+                }
+            }
+if(max>1)
+
+            return max;
+else
+return -3;
+
+        }
+ 
+    }
+}
+
+------------------------------------
+92.Sum Largest Numbers In Range
+class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = Convert.ToInt32(Console.ReadLine());
+            }
+           int x= UserProgramCode.largestNumber(a);
+
+           int flag1 = 0;
+           int flag2 = 0;
+           for (int i = 0; i < a.Length; i++)
+           {
+               if (a[i] < 0)
+               {
+                   flag1 = 1;
+                   break;
+               }
+           }
+
+
+           for (int i = 0; i < a.Length; i++)
+           {
+               if ((a[i] == 0) || (a[i] > 100))
+               {
+                   flag2 = 1;
+                   break;
+               }
+           }
+           if (flag1 == 1 && flag2 == 1)
+               Console.WriteLine("-3");
+           else if (flag1 == 1)
+               Console.WriteLine("-1");
+           else if (flag2 == 1)
+               Console.WriteLine("-2");
+           else
+           
+           Console.WriteLine(x);
+           Console.ReadKey();
+
+            
+        }
+    }
+}
+ class UserProgramCode
+    {
+        public static int largestNumber(int[] a)
+        {
+            int[] r = a.Distinct().ToArray();
+                int k1 = 0;
+                int max = 0;
+                int sum = 0;
+                for (int j = 10; j <= 100; j = j + 10)
+                {
+                    max = 0;
+                    for (int i = 0; i < r.Length; i++)
+                    {
+                        if (r[i] > k1 && r[i] <= j)
+                        {
+                            
+                            if (r[i] > max)
+                            {
+                                max = r[i];
+                            }
+                        }
+                       // sum = sum + max;
+                    }
+                   // k1 = j - 1;
+                    sum = sum + max;
+                    k1 = j;
+                }
+                return (sum);
+            }
+        }
+    }
+
+
+
+-------------------------------------------------------------------------------------
+93.Next Consonant or Vowel
+class Program
+    {
+        static void Main(string[] args)
+        {
+            //int flag=0;
+            string a = Console.ReadLine();
+            char[] b = a.ToCharArray();
+            foreach (var c in b)
+            {
+                if (!char.IsLetter(c))
+                {
+                    Console.WriteLine("Invalid input");
+                    Console.ReadKey();
+                    System.Environment.Exit(0);
+                }
+                
+            }
+             Console.WriteLine(UserProgramCode.nextString(a));
+             Console.ReadLine();
+        }
+    }
+}
+class UserProgramCode
+    {
+        public static string nextString(String a)
+        {
+            char[] b = a.ToCharArray();
+            StringBuilder sb= new StringBuilder();
+            foreach (var c in b)
+            {
+                if (char.IsLetter(c))
+                {
+                    if ((c >= 'A') && (c <= 'Z'))
+                    {
+                        if (c == 'A')
+                            sb.Append('B');
+                        else if(c == 'E')
+                            sb.Append('F');
+                        else if (c == 'I')
+                            sb.Append('J');
+                        else if (c == 'O')
+                            sb.Append('P');
+                        else if (c == 'U')
+                            sb.Append('V');
+                        else if((c>='B')&&(c<='D'))
+                            sb.Append('E');
+                        else if ((c >= 'F') && (c <= 'H'))
+                            sb.Append('I');
+                        else if ((c >= 'J') && (c <= 'N'))
+                            sb.Append('O');
+                        else if ((c >= 'P') && (c <= 'T'))
+                            sb.Append('U');
+                        else if ((c >= 'V') && (c <= 'Z'))
+                            sb.Append('A');
+                    }
+
+                    if ((c >= 'a') && (c <= 'z'))
+                    {
+                        if (c == 'a')
+                            sb.Append('b');
+                        else if (c == 'e')
+                            sb.Append('f');
+                        else if (c == 'i')
+                            sb.Append('j');
+                        else if (c == 'o')
+                            sb.Append('p');
+                        else if (c == 'u')
+                            sb.Append('v');
+                        else if ((c >= 'b') && (c <= 'd'))
+                            sb.Append('e');
+                        else if ((c >= 'f') && (c <= 'h'))
+                            sb.Append('i');
+                        else if ((c >= 'j') && (c <= 'n'))
+                            sb.Append('o');
+                        else if ((c >= 'p') && (c <= 't'))
+                            sb.Append('u');
+                        else if ((c >= 'v') && (c <= 'z'))
+                            sb.Append('a');
+                    }
+
+                }
+            }
+
+            string s = sb.ToString();
+            return s;
+        }
+
+    }
+}
+
+-----------------------------------------------------------------
+94.Power of 2
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+           // int flag=0;
+            int a = Convert.ToInt32(Console.ReadLine());
+            if (a < 0)
+            {
+                Console.WriteLine("-1");
+                Console.ReadKey();
+                System.Environment.Exit(0);
+            }
+            else
+                Console.WriteLine(UserProgramCode.twoPower(a));
+            
+            Console.ReadKey();
+        }
+    }
+}
+ class UserProgramCode
+    {
+        public static int twoPower(int a)
+        {
+            int count=0,flag=0;
+            while (a>1)
+            {
+                
+                if (a % 2 != 0)
+                {
+                    flag = 1;
+                    break;
+                }
+                else
+                {
+                    count++;
+                }
+               a = a / 2;
+            }
+
+            if (flag == 1)
+                return -1;
+            else
+                return count; 
+        }
+    }
+}
+
+---------------------------------------------------------------------------
+95.String Equal Check
+ class Program
+    {
+        static void Main(string[] args)
+        {int flag=0;
+            string a = Console.ReadLine();
+            string b = Console.ReadLine();
+            int c = Convert.ToInt32(Console.ReadLine());
+
+            if ((c > a.Length) || (c > b.Length))
+                flag = 1;
+
+            char[] p = a.ToCharArray();
+           
+            foreach (var d in p)
+            {
+                if (!char.IsLetter(d))
+                    flag = 1;
+            }
+            char[] q = b.ToCharArray();
+            foreach (var e in q)
+            {
+                if (!char.IsLetter(e))
+                    flag = 1;
+            }
+            if(flag==1)
+                Console.WriteLine("Invalid input");
+            else
+                Console.WriteLine(UserProgramCode.stringEqualCheck(a,b,c));
+            Console.ReadKey();
+
+        }
+    }
+}
+ class UserProgramCode
+    {
+        public static string stringEqualCheck(string a, string b, int c)
+        {
+            char[] p = a.ToCharArray();
+            char[] q = b.ToCharArray();
+            Array.Reverse(q);
+
+            if (p[c - 1] == q[c - 1])
+            {
+                return string.Concat("The character is "+p[c - 1].ToString());
+            }
+            else
+            {
+                return string.Concat("The character " + p[c - 1] + " and " + q[c - 1] + " does not match");
+            }
+
+
+        }
+    }
+}
+
+--------------------------------------------------------------------------
+
+96.3,4 Number System
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            n = Convert.ToInt16(Console.ReadLine());
+            UserProgramCode.findNumber(n);
+            Console.ReadKey();
+        }
+    }
+
+    class UserProgramCode
+    { public static void findNumber(int input1)
+        {
+        
+            int i = 0;
+            int count = 0;
+            if (input1 > 0)
+            {
+                while (1 == 1)
+                {
+                    int x = ++i;
+                    int z = x;
+                    string k = Convert.ToString(x);
+                    int l = k.Length;
+                    int cc = 0;
+                    for (int j = 0; j < l; j++)
+                    {
+                        int a = x % 10;
+                        int b = x / 10;
+                        x = b;
+                        if (a == 3 || a == 4)
+                        {
+                            cc++;
+                        }
+                        else
+                            break;
+                    }
+                    if (cc == l)
+                        count++;
+                    if (input1 == count)
+                    {
+                        Console.WriteLine(z);
+                        break;
+                    }
+                }
+            }
+            else
+                Console.WriteLine(-1);
+        }
+    }
+}
+ 
+    
+-------------------------------------------------------------------
+97.Rearrange Case
+class Program
+    {
+        static void Main(string[] args)
+        {
+             string a, b;
+            int c1=0,c4 = 0;
+            a = Console.ReadLine();
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (!char.IsLetterOrDigit(a[i]))
+                {
+                    c4++;
+                    break;
+                }
+            }
+            if (c4 == 1)
+            {
+                Console.WriteLine("Invalid Input");
+                Console.ReadKey();
+                System.Environment.Exit(0);
+                
+            }
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (char.IsLower(a[i]))
+                {
+                    c1++;
+                }
+            }
+            if (c1 == a.Length)
+            {
+                Console.WriteLine("Condition does not meet");
+                Console.ReadKey();
+                System.Environment.Exit(0);
+            }
+
+            b = UserProgramCode.rearrangeCase(a);
+            Console.WriteLine(b);
+            Console.ReadKey();
+ 
+        }
+    }
+}
+class UserProgramCode
+    {
+        
+        static char cf;
+        public static string rearrangeCase(string input1)
+        {
+           
+            int l = input1.Length;
+            int c3 = 0;
+            StringBuilder a1 = new StringBuilder();
+            StringBuilder a2 = new StringBuilder();
+            StringBuilder a3 = new StringBuilder();
+
+                for (int i = 0; i < l; i++)
+                {
+                    int c2 = 0;
+                    if (char.IsUpper(input1[i]))
+                    {
+                        for (int j = 0; j < l; j++)
+                        {
+                            if (input1[j] == char.ToLower(input1[i]))
+                                c2++;
+                        }
+                    }
+                    if (c2 > c3)
+                    {
+                        c3 = c2;
+                        cf = input1[i];
+                    }
+                    else if (c2 == c3)
+                    {
+                        return ("Re-arranging is not possible");
+                    }
+
+                }
+                for (int i = 0; i < l; i++)
+                {
+                    if (input1[i] == char.ToUpper(cf))
+                    {
+                        a1.Append(cf);
+                    }
+                    else if (input1[i] == char.ToLower(cf))
+                    {
+                        a2.Append(char.ToLower(cf));
+                    }
+                    else
+                    {
+                        a3.Append(input1[i]);
+                    }
+                }
+            
+            return (a1.ToString() + "" + a3.ToString() + "" + a2.ToString());
+        }
+
+    }
+}
+--------------------------------------------------------------------------
+98.Repeated Integers
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int flag=0;
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                a[i] = Convert.ToInt32(Console.ReadLine());
+                if (a[i] < 0)
+                    flag = 1;
+            }
+            if (flag == 1)
+            {
+                Console.WriteLine("Array contains negative numbers");
+                Console.ReadKey();
+                System.Environment.Exit(0);
+            }
+            UserProgramCode.findRepeatedIntegers(n, a);
+            Console.ReadLine();
+        }
+    }
+}
+
+ class UserProgramCode
+    {
+        public static void findRepeatedIntegers(int n, int[] a)
+        {
+            int count = 0;
+            List<int> b = new List<int>();
+            int k ;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                   
+                    if (a[j] > 0)
+                     {
+                        if (a[i] == a[j])
+                        {
+                            b.Add(a[i]);
+                            count++;
+                           
+                                for (k = j+1; k < n; k++)
+                                {
+                                    if (a[j] == a[k])
+                                    {
+                                        a[k] = -1;
+                                    }
+                                }
+                           
+                        }
+                    }
+                }
+            }
+            if (count == 0)
+            {
+                Console.WriteLine("No repeated numbers");
+             
+            }
+            else
+            {
+                b.Sort();
+               foreach(int p in b)
+                {
+                   Console.WriteLine(p);
+
+                }
+
+            }
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------
+99.Number Availability
+class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[30];
+            for (int i = 0; i < n;i++)
+            {
+                a[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            int ser = Convert.ToInt32(Console.ReadLine());
+            int s = UserProgramCode.find(n, a, ser);
+            if (s == 1)
+            {
+                Console.WriteLine("Present");
+            }
+           
+            else  if (s == 0)
+            {
+                Console.WriteLine("Not Present");
+            }
+            else 
+            {
+                Console.WriteLine("Non Positive");
+            }
+            Console.ReadKey();
+	   }
+    }
+}
+
+
+    class UserProgramCode
+    {
+        public static int find(int n, int[] a, int ser)
+        {
+           for (int i = 0; i < n; i++)
+            { 
+                if (a[i] < 0)
+                {
+                    return -1;
+                 }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                if (a[i] > 0)
+                {
+                    if (a[i] == ser)
+                    {
+                        return 1;
+                        
+                    }
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                  if(a[i]!=ser)
+                    {
+                        return 0;
+                    }
+            }
+            return 0;
+         }
+    }
+}
+
+--------------------------------------------------------------------------------------
+100.Largest Digit 
+     class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            
+            int s=UserProgramCode.findLargestDigit(n);
+            if (s == -1)
+                Console.WriteLine("Negative Number");
+            else
+            {
+                Console.WriteLine(s);
+            }
+            Console.ReadKey();
+            
+        }
+    }
+}
+class UserProgramCode
+    {
+        public static int findLargestDigit(int n)
+        {
+            int max = 0;
+            int rem;
+            if (n < 0)
+            {
+                return -1;
+            }
+            else
+            {
+                while (n != 0)
+                {
+                    rem = n % 10;
+
+                    if (rem > max)
+                    {
+                        max = rem;
+                    }
+                    n = n / 10;
+                }
+            }
+            return max;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+ADDITIONAL  PROGRAMS
+
+
+
+ADD YEARS
+
+----------------------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+using System.Globalization;
+
+ 
+
+namespace add_years
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static string addYears(string date_string)
+
+        {
+
+            Console.WriteLine("enter the no of years u want to add");
+
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            
+
+            DateTime dt = new DateTime();
+
+            bool t = DateTime.TryParseExact(date_string,"mm/dd/yyyy",CultureInfo.CurrentCulture,DateTimeStyles.None,out dt);
+
+ 
+
+           if(n<0)
+
+               return "-2";
+
+ 
+
+           else if (t == false)
+
+               return "-1";
+
+ 
+
+           else
+
+           {
+
+               DateTime ADD = dt.AddYears(n);
+
+ 
+
+               //ADD.Date.ToString("d")---used to extract th edate from the datetime format
+
+               return ADD.Date.ToString("d");
+
+           }
+
+   
+
+        }
+
+    }
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            Console.WriteLine("enter the date");
+
+            string date_string = Console.ReadLine();
+
+ 
+
+            
+
+            string ret = UserProgramCode.addYears(date_string);
+
+            
+
+            if(ret=="-2")
+
+                Console.WriteLine("Invalid Input");
+
+            else if(ret=="-1")
+
+                Console.WriteLine("Invalid date format");
+
+            else
+
+                Console.WriteLine(ret);
+
+ 
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+ 
+
+CALCULATE BILL
+
+--------------------------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace calculate_bill
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int calculateBill(string input1, string input2,int input3)
+
+        {
+
+            
+
+            
+
+            string ex1 = input1.Substring(5, 5);
+
+            string ex2 = input2.Substring(5, 5);
+
+ 
+
+            int n1 = Convert.ToInt32(ex1);
+
+            int n2 = Convert.ToInt32(ex2);
+
+ 
+
+            int bill = (n2 - n1) * input3;
+
+            return bill;
+
+ 
+
+        }
+
+ 
+
+    }
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string input1 = Console.ReadLine();
+
+            string input2 = Console.ReadLine();
+
+            int input3 = Convert.ToInt32(Console.ReadLine());
+
+ 
+
+            int a = UserProgramCode.calculateBill(input1, input2,input3);
+
+            Console.WriteLine(a);
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+calculate efficiency
+
+---------------------------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace calculate_the_efficiency
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static string EfficiencyChecker(float time)
+
+        {
+
+            if (time >= 1.0f && time <= 3.0f)
+
+                return "Highly efficient";
+
+            else if (time > 3.0f && time <= 4.0f)
+
+                return "Improve speed";
+
+            else if (time > 4.0f && time <= 5.0f)
+
+                return "Need Training";
+
+            else if (time > 5.0f)
+
+                return "Leave The Company";
+
+            else
+
+                return "Invalid Input";
+
+        }
+
+    }
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            float t = Convert.ToSingle(Console.ReadLine());
+
+            string s = UserProgramCode.EfficiencyChecker(t);
+
+ 
+
+            Console.WriteLine(s);
+
+ 
+
+            Console.ReadKey();
+
+ 
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+COUNT VOWELS
+
+--------------------------
+
+ 
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace count_vowels
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int countVowles(string name)
+
+        {
+
+            int c = 0;
+
+            char[] cha = name.ToCharArray();
+
+ 
+
+            for (int i = 0; i < name.Length; i++)
+
+            {
+
+                if (cha[i] == 'a' || cha[i] == 'e' || cha[i] == 'i' || cha[i] == 'o' || cha[i] == 'u'
+
+                    || cha[i] == 'A' || cha[i] == 'E' || cha[i] == 'I' || cha[i] == 'O' || cha[i] == 'U')
+
+                {
+
+                    c++;
+
+                }
+
+            }
+
+ 
+
+            return c;
+
+ 
+
+        }
+
+    }
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string str = Console.ReadLine();
+
+            int n = UserProgramCode.countVowles(str);
+
+            Console.WriteLine(n);
+
+            Console.ReadKey();
+
+ 
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+DIGIT SUM
+
+------------------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace digit_sum
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int getDigitSum(int input1)
+
+        {
+
+            int sum = 0;
+
+            //int k = 45;
+
+ 
+
+            while (input1 != 0)
+
+            {
+
+                sum = (input1 % 10) + sum;
+
+                input1 = input1 / 10;
+
+ 
+
+            }
+
+            //return sum;
+
+ 
+
+            int sum_temp = 0;
+
+ 
+
+            if (sum > 0 && sum <= 9)
+
+            {
+
+                return sum;
+
+            }
+
+            else
+
+            {
+
+                while (sum != 0)
+
+                {
+
+                    sum_temp = (sum % 10) + sum_temp;
+
+                    sum = (sum / 10);
+
+ 
+
+                }
+
+ 
+
+                return sum_temp;
+
+ 
+
+ 
+
+            }
+
+            //return sum_temp;
+
+        }
+
+ 
+
+    }
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            int r = UserProgramCode.getDigitSum(n);
+
+            Console.WriteLine(r);
+
+ 
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+FIND NTH LARGEST NUMBER
+
+-----------------------------------------------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace Find_nth_Largest_Number
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static int findNthLargestNumber( int[] arr,int n)
+
+        {
+
+            for (int i = 0; i < arr.Length; i++)
+
+            {
+
+                if (arr[i] < 0)
+
+                    return -1;
+
+                
+
+            }
+
+ 
+
+            Array.Sort(arr);
+
+            Array.Reverse(arr);
+
+            return arr[n - 1];
+
+ 
+
+        }
+
+    }
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            int m = Convert.ToInt32(Console.ReadLine());
+
+            int[] a=new int[m];
+
+ 
+
+            for (int i = 0; i < m; i++)
+
+            {
+
+                a[i] = Convert.ToInt32(Console.ReadLine());
+
+            }
+
+ 
+
+            int find_n = Convert.ToInt32(Console.ReadLine());
+
+ 
+
+            int r_num = UserProgramCode.findNthLargestNumber(a,find_n);
+
+ 
+
+            Console.WriteLine(r_num);
+
+ 
+
+            Console.ReadKey();
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+GET COMMON ELEMENTS
+
+------------------------------------------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+ 
+
+namespace get_common_element
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static List<int> getCommonItems(List<int> input1, List<int> input2)
+
+        {
+
+            List<int> final = new List<int>();
+
+ 
+
+            var common = input1.Intersect(input2);
+
+            foreach (var n in common)
+
+            {
+
+                
+
+                final.Add(n);
+
+ 
+
+            }
+
+ 
+
+            return final;
+
+        }
+
+    }
+
+    class Program
+
+    {
+
+        public int c = 0;
+
+        static void Main(string[] args)
+
+        {
+
+ 
+
+            //Console.WriteLine(in1);
+
+            int a;
+
+            int n1 = Convert.ToInt32(Console.ReadLine());
+
+            List<int> in1 = new List<int>();
+
+            int f1 = 0, f2 = 0;
+
+            for (int i = 0; i < n1; i++)
+
+            {
+
+                a = Convert.ToInt32(Console.ReadLine());
+
+                if (a < 0)
+
+                {
+
+                    f1 = 1;
+
+                    break;
+
+                }
+
+                else
+
+                in1.Add(a);
+
+            }
+
+ 
+
+            List<int> in2 = new List<int>();
+
+          
+
+            int n2 = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < n2; i++)
+
+            {
+
+                a = Convert.ToInt32(Console.ReadLine());
+
+                if (a < 0)
+
+                {
+
+                    f2 = 1;
+
+                    break;
+
+                }
+
+                else
+
+                    in2.Add(a);
+
+            }
+
+            if (f1 == 1 || f2 == 1)
+
+                Console.WriteLine("-1");
+
+            else
+
+            {
+
+                List<int> in3 = UserProgramCode.getCommonItems(in1, in2);
+
+                foreach (var s in in3)
+
+                    Console.WriteLine(s);
+
+            }
+
+            Console.ReadKey();
+
+ 
+
+        }
+
+    }
+
+}
+
+ 
+
+ 
+
+ 
+
+GET SPECIAL CHARACTER
+
+---------------------------------------------
+
+ 
+
+using System;
+
+using System.Collections.Generic;
+
+using System.Linq;
+
+using System.Text;
+
+//using System.Text.RegularExpressions;
+
+ 
+
+namespace special_chracter
+
+{
+
+    class UserProgramCode
+
+    {
+
+        public static string getSpecialChar(string input1)
+
+        {
+
+            int c=0;
+
+           
+
+            for(int i=0;i<input1.Length;i++)
+
+            {
+
+             if( input1[i]=='#' || input1[i]=='$' || input1[i]== '%' || input1[i]== '&' || (input1[i]>=48 && input1[i]<=57))
+
+             {
+
+                 c++;
+
+             }
+
+            }
+
+            char[] str=new char[c];
+
+            int j = 0;
+
+            for (int i = 0; i < input1.Length; i++)
+
+            {
+
+                if (input1[i] == '#' || input1[i] == '$' || input1[i] == '%' || input1[i] == '&' || (input1[i] >= 48 && input1[i] <= 57))
+
+                {
+
+                    str[j] = input1[i];
+
+                    j++;
+
+                }
+
+            }
+
+            string s = new string(str);
+
+            return s;
+
+        }
+
+    }
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            string entry = Console.ReadLine();
+
+            string s = UserProgramCode.getSpecialChar(entry);
+
+            Console.WriteLine(s);
+
+            Console.ReadKey();
+
+        }
+
+    }
